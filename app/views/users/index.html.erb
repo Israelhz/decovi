@@ -1,0 +1,99 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h1>Usuarios Aprobados</h1>
+  </div>
+  <table class= "table">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Apellido Paterno</th>
+        <th>Apellido Materno</th>
+        <th>Correo</th>
+        <th>Tipo</th>
+        <th colspan="5"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @users.each do |user| %>
+		  <tr>
+		    <td><%= user.nombre %></td>
+		    <td><%= user.apellidoPaterno %></td>
+		    <td><%= user.apellidoMaterno %></td>
+		    <td><%= user.email %></td>
+		    <% if user.admin? %>
+		    	<td><%= 'Admin' %></td>
+		    <% end %>
+		    <% if user.individuo? %>
+		    	<td><%= 'Individuo' %></td>
+		    <% end %>
+		    <% if user.ventas? %>
+		    	<td><%= 'Ventas' %></td>
+		    <% end %>
+		    <% if user.empresa? %>
+		    	<td><%= 'Empresa'  %></td>
+		    <% end %>
+		    <% if user.empleado? %>
+		    	<td><%= 'Empleado' %></td>
+		    <% end %>
+		    <td><%= button_to "Hacer Empresa", { :controller => "users", :action => "empresa" }, :method => :get, params: { user_id: user.id } %>
+		  </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <br>
+  <div class="panel-footer">
+  </div>
+</div>
+
+<hr>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h1>Usuarios No Aprobados</h1>
+  </div>
+  <table class= "table">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Apellido Paterno</th>
+        <th>Apellido Materno</th>
+        <th>Correo</th>
+        <th>Tipo</th>
+        <th colspan="5"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @newUsers.each do |user| %>
+		  <tr>
+		    <td><%= user.nombre %></td>
+		    <td><%= user.apellidoPaterno %></td>
+		    <td><%= user.apellidoMaterno %></td>
+		    <td><%= user.email %></td>
+		    <% if user.admin? %>
+		    	<td><%= 'Admin' %></td>
+		    <% end %>
+		    <% if user.individuo? %>
+		    	<td><%= 'Individuo' %></td>
+		    <% end %>
+		    <% if user.ventas? %>
+		    	<td><%= 'Ventas' %></td>
+		    <% end %>
+		    <% if user.empresa? %>
+		    	<td><%= 'Empresa' %></td>
+		    <% end %>
+		    <% if user.empleado? %>
+		    	<td><%= 'Empleado' %></td>
+		    <% end %>
+		    <td><%= button_to "Aprobar", { :controller => "users", :action => "aprobar" }, :method => :get, params: { user_id: user.id } %>
+		  </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <br>
+  <div class="panel-footer">
+  </div>
+</div>

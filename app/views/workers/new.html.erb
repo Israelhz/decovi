@@ -1,0 +1,16 @@
+<%= form_for User.new , :url => {:action => "add_user"} do |user| %>
+  <%= user.label :email %><br />
+  <%=user.email_field :email%>
+  <br />
+  <%= user.label :password %><br />
+  <%=user.password_field :password%>
+  <br />
+  <%= user.label :password_confirmation %><br />
+  <%=user.password_field :password_confirmation%>
+  <br />
+  <%=user.hidden_field :trabajaPara, :value => current_user.id%>
+  <%=user.hidden_field :empleado, :value => true%>
+
+
+  <%=user.submit 'add'%>
+<%end%>

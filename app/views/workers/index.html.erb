@@ -1,0 +1,32 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h1>Trabajadores</h1>
+  </div>
+  <table class= "table">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Apellido Paterno</th>
+        <th>Apellido Materno</th>
+        <th>Correo</th>
+        <th colspan="4"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @users.each do |user| %>
+		  <tr>
+		    <td><%= user.nombre %></td>
+		    <td><%= user.apellidoPaterno %></td>
+		    <td><%= user.apellidoMaterno %></td>
+		    <td><%= user.email %></td>
+		  </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <br>
+  <div class="panel-footer">
+  	<%= link_to 'Nuevo Trabajador', workers_new_path %>
+  </div>
+</div>

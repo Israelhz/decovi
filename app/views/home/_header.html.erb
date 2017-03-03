@@ -15,6 +15,12 @@
        	<li><%= link_to 'Home', root_path %></li>
 		    <li><%= link_to 'About', home_about_path %></li>
         <% if user_signed_in? %>
+          <% if current_user.admin? %>
+            <li><%= link_to 'Users', users_index_path %></li>
+          <% end %>
+          <% if current_user.empresa? %>
+            <li><%= link_to 'Workers', workers_index_path %></li>
+          <% end %>
           <li><%= link_to 'Edit', edit_user_registration_path %></li>
           <li><%= link_to 'Log Out', destroy_user_session_path, method: :delete %></li>
         <% else %>

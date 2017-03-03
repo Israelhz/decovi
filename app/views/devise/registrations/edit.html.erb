@@ -4,8 +4,23 @@
   <%= devise_error_messages! %>
 
   <div class="field">
+    <%= f.label :nombre, "Nombre" %><br />
+    <%= f.text_field :nombre, autofocus: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :apellidoPaterno, "Apellido Paterno" %><br />
+    <%= f.text_field :apellidoPaterno %>
+  </div>
+
+  <div class="field">
+    <%= f.label :apellidoMaterno, "Apellido Materno" %><br />
+    <%= f.text_field :apellidoMaterno %>
+  </div>
+
+  <div class="field">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+    <%= f.email_field :email%>
   </div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
