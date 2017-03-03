@@ -1,0 +1,10 @@
+<div class="divide80"></div>
+<div class="panel panel-default">
+  <div class="panel-heading"><h2>Editar empleado</h2></div>
+  <div class="panel-body">
+	<%= render 'form', empleado: @empleado %>
+
+	<%= link_to 'Ver', @empleado, class:'btn btn-default' %> 
+	<%= link_to 'Volver', empleados_path, class:'btn btn-default' %>
+	</div>
+</div>
