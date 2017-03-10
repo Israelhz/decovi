@@ -16,10 +16,7 @@
     <%= f.text_area :tipo %>
   </div>
 
-  <div class="field">
-    <%= f.label :estatus %>
-    <%= f.text_area :estatus %>
-  </div>
+  <%=f.hidden_field :estatus, :value => "Recibido"%>
 
   <div class="actions">
     <%= f.submit %>

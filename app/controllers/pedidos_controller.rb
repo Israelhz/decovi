@@ -1,10 +1,10 @@
 class PedidosController < ApplicationController
   before_action :set_pedido, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user!
   # GET /pedidos
   # GET /pedidos.json
   def index
-    @pedidos = Pedido.all
+    @pedidos = current_user.pedidos
   end
 
   # GET /pedidos/1
@@ -14,7 +14,7 @@ class PedidosController < ApplicationController
 
   # GET /pedidos/new
   def new
-    @pedido = Pedido.new
+    @pedido = current_user.pedidos.build
   end
 
   # GET /pedidos/1/edit
@@ -24,7 +24,7 @@ class PedidosController < ApplicationController
   # POST /pedidos
   # POST /pedidos.json
   def create
-    @pedido = Pedido.new(pedido_params)
+    @pedido = current_user.pedidos.build(pedido_params)
 
     respond_to do |format|
       if @pedido.save
