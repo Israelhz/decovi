@@ -1,7 +1,5 @@
 class WorkersController < ApplicationController
-	include ActiveModel::Validations
 	before_action :authenticate_user!, :correct_user
-	validates :password, :presence => true, length: { minimum: 6 }
 
 	def index
 	    @users = User.where(trabajaPara: current_user.id)
@@ -14,7 +12,6 @@ class WorkersController < ApplicationController
 	def add_user   
 	  @user = User.new(user_params)
 	   if @user.save!
-   	    User.where(id: params[:user_id]).update_all(aprobado: true)
    	    flash[:notice] = 'Empleado creado exitosamente'
 	   else
 	    flash[:notice] = 'Error en creacion de empleado'
@@ -30,6 +27,6 @@ class WorkersController < ApplicationController
     end
 
     def user_params
-  		params.require(:user).permit(:email, :password, :password_confirmation, :trabajaPara, :empleado)
+  		params.require(:user).permit(:email, :password, :password_confirmation, :trabajaPara, :empleado, :aprobado)
 	end
 end
