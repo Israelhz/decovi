@@ -10,7 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170303212502) do
+ActiveRecord::Schema.define(version: 20170310213300) do
+
+  create_table "pedidos", force: :cascade do |t|
+    t.text     "tipo"
+    t.text     "estatus"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "user_id"
+    t.index ["user_id"], name: "index_pedidos_on_user_id"
+  end
+
+  create_table "productos", force: :cascade do |t|
+    t.text     "nombre"
+    t.text     "acabado"
+    t.integer  "cantidad"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "pedido_id"
+    t.index ["pedido_id"], name: "index_productos_on_pedido_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
