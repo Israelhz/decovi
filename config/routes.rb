@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :pedidos
   root 'home#index'
   get 'home/about'
   devise_for :users, :controllers => { registrations: 'registrations' }

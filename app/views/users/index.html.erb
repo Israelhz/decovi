@@ -35,9 +35,11 @@
 		    	<td><%= 'Empresa'  %></td>
 		    <% end %>
 		    <% if user.empleado? %>
-		    	<td><%= 'Empleado' %></td>
+		    	<td><%= 'Empleado' + ' (' + User.find(user.trabajaPara).nombre + ')' %></td>
 		    <% end %>
-		    <td><%= button_to "Hacer Empresa", { :controller => "users", :action => "empresa" }, :method => :get, params: { user_id: user.id } %>
+		    <% if user.individuo? %>
+		    	<td><%= button_to "Hacer Empresa", { :controller => "users", :action => "empresa" }, :method => :get, params: { user_id: user.id } %>
+		    <% end %> 
 		  </tr>
       <% end %>
     </tbody>

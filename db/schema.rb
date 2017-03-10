@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170303212502) do
+ActiveRecord::Schema.define(version: 20170310205714) do
+
+  create_table "pedidos", force: :cascade do |t|
+    t.text     "tipo"
+    t.text     "estatus"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
