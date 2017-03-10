@@ -1,17 +1,28 @@
-<%= form_for User.new , :url => {:action => "add_user"} do |user| %>
-  <%= user.label :email %><br />
-  <%=user.email_field :email%>
-  <br />
-  <%= user.label :password %><br />
-  <%=user.password_field :password%>
-  <br />
-  <%= user.label :password_confirmation %><br />
-  <%=user.password_field :password_confirmation%>
-  <br />
-  <%=user.hidden_field :trabajaPara, :value => current_user.id%>
-  <%=user.hidden_field :empleado, :value => true%>
-  <%=user.hidden_field :aprobado, :value => true%>
+<div class="divide80"></div>
+  <div class="panel panel-default">
+    <div class="panel-heading"><h2>Nuevo Empleado</h2></div>
+    <div class="panel-body">
+    <%= form_for User.new , :url => {:action => "add_user"} do |user| %>
+      <div class="form-group">
+        <%= user.label :email %><br />
+        <%=user.email_field :email%>
+      </div>
 
+      <div class="form-group">
+        <%= user.label :password %><br />
+        <%=user.password_field :password%>
+      </div>
+      
+      <div class="form-group">
+        <%= user.label :password_confirmation %><br />
+        <%=user.password_field :password_confirmation%>
+      </div>
 
-  <%=user.submit 'add'%>
-<%end%>
+      <%=user.hidden_field :trabajaPara, :value => current_user.id%>
+      <%=user.hidden_field :empleado, :value => true%>
+      <%=user.hidden_field :aprobado, :value => true%>
+
+      <div class="actions">
+        <%=user.submit 'Agregar Empleado', class:'btn btn-primary'%>
+      </div>
+    <%end%>

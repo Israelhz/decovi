@@ -4,13 +4,6 @@
             <div class="col-sm-12 text-right">
                 <ul class="list-inline top-dark-right">
                 <% if user_signed_in? %>
-                  <% if current_user.admin? %>
-                    <li><%= link_to 'Users', users_index_path %></li>
-                  <% end %>
-                  <% if current_user.empresa? %>
-                    <li><%= link_to 'Workers', workers_index_path %></li>
-                  <% end %>
-                  <li><%= link_to 'Edit', edit_user_registration_path %></li>
                   <li><%= link_to 'Log Out', destroy_user_session_path, method: :delete %></li>
                 <% else %>
                   <li><%= link_to 'Log In', new_user_session_path %></li>
@@ -32,7 +25,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html"><img src="img/logo.png" alt="DECOVI"></a>
+            <%= link_to 'DECOVI', root_path, class: "navbar-brand" %>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -56,9 +49,13 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administrar</a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><%= link_to 'Empleados', root_path %></li>
-                            <li><%= link_to 'Clientes', root_path %></li>
-                            <li><%= link_to 'Pedidos', root_path %></li>
+                            <li><%= link_to 'Edit', edit_user_registration_path %></li>
+                            <% if current_user.admin? %>
+                                <li><%= link_to 'Users', users_index_path %></li>
+                            <% end %>
+                            <% if current_user.empresa? %>
+                                <li><%= link_to 'Workers', workers_index_path %></li>
+                            <% end %>
                         </ul>
                     </li>
                 <% end %>
