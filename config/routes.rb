@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :productos
   resources :pedidos
   root 'home#index'
   get 'home/about'
