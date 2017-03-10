@@ -1,5 +1,7 @@
 class WorkersController < ApplicationController
+	include ActiveModel::Validations
 	before_action :authenticate_user!, :correct_user
+	validates :password, :presence => true, length: { minimum: 6 }
 
 	def index
 	    @users = User.where(trabajaPara: current_user.id)
@@ -9,16 +11,15 @@ class WorkersController < ApplicationController
     	@user = User.new
   	end
 
-	def add_user
+	def add_user   
 	  @user = User.new(user_params)
 	   if @user.save!
-	   	User.where(id: params[:user_id]).update_all(aprobado: true, individuo: true)
-	   	flash[:notice] = 'Empleado creado exitosamente'
-	     redirect_to root_path
+   	    User.where(id: params[:user_id]).update_all(aprobado: true)
+   	    flash[:notice] = 'Empleado creado exitosamente'
 	   else
-	     flash[:notice] = 'Error en creacion de empleado'
-	     redirect_to root_path
+	    flash[:notice] = 'Error en creacion de empleado'
 	   end
+	   redirect_to root_path
 	end
 	
 	private
