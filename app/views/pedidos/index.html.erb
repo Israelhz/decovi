@@ -8,6 +8,7 @@
       <th>Id</th>
       <th>Tipo</th>
       <th>Estatus</th>
+      <th>Productos</th>
       <th colspan="4"></th>
     </tr>
   </thead>
@@ -18,6 +19,12 @@
         <td><%= pedido.id %></td>
         <td><%= pedido.tipo %></td>
         <td><%= pedido.estatus %></td>
+        <td>
+          <% pedido.productos.each do |producto| %>
+            <%= producto.cantidad.to_s + ' ' + producto.nombre  %> <br>
+          <% end %>
+        </td>
+        <td><%= link_to "Agregar Productos", productos_path(:pedido => pedido) %></td>
         <td><%= link_to 'Show', pedido %></td>
         <td><%= link_to 'Edit', edit_pedido_path(pedido) %></td>
         <td><%= link_to 'Destroy', pedido, method: :delete, data: { confirm: 'Are you sure?' } %></td>

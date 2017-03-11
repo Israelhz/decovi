@@ -1,30 +1,36 @@
 class ProductosController < ApplicationController
   before_action :set_producto, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /productos
   # GET /productos.json
   def index
-    @productos = Producto.all
+    @pedido = Pedido.find(params[:pedido])
+    @productos = @pedido.productos
   end
 
   # GET /productos/1
   # GET /productos/1.json
   def show
+    @pedido = Pedido.find(@producto.pedido_id)
   end
 
   # GET /productos/new
   def new
-    @producto = Producto.new
+    @pedido = Pedido.find(params[:pedido])
+    @producto = @pedido.productos.build
   end
 
   # GET /productos/1/edit
   def edit
+    @pedido = Pedido.find(@producto.pedido_id)
   end
 
   # POST /productos
   # POST /productos.json
   def create
-    @producto = Producto.new(producto_params)
+    @pedido = Pedido.find(params[:producto][:pedido_id])
+    @producto = @pedido.productos.build(producto_params)
 
     respond_to do |format|
       if @producto.save
@@ -54,9 +60,10 @@ class ProductosController < ApplicationController
   # DELETE /productos/1
   # DELETE /productos/1.json
   def destroy
+    @pedido = Pedido.find(@producto.pedido_id)
     @producto.destroy
     respond_to do |format|
-      format.html { redirect_to productos_url, notice: 'Producto was successfully destroyed.' }
+      format.html { redirect_to productos_url(:pedido => @pedido), notice: 'Producto was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -71,4 +78,5 @@ class ProductosController < ApplicationController
     def producto_params
       params.require(:producto).permit(:nombre, :acabado, :cantidad)
     end
+
 end
