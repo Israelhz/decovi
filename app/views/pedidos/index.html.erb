@@ -18,7 +18,12 @@
       <tr>
         <td><%= pedido.id %></td>
         <td><%= pedido.tipo %></td>
-        <td><%= pedido.estatus %></td>
+        <td>
+        <%= pedido.estatus %>
+        <% if pedido.estatus == 'Recibido' && current_user.admin? %>
+          <br><%= button_to "Aprobar", { :controller => "pedidos", :action => "aprobar" }, :method => :get, params: { pedido_id: pedido.id } %>
+        <% end %>
+        </td>
         <td>
           <% pedido.productos.each do |producto| %>
             <%= producto.cantidad.to_s + ' ' + producto.nombre  %> <br>

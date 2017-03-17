@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :productos
+  get 'pedidos/aprobar' => 'pedidos#aprobar'
   resources :pedidos
   root 'home#index'
   get 'home/about'

@@ -61,6 +61,11 @@ class PedidosController < ApplicationController
     end
   end
 
+  def aprobar
+    Pedido.where(id: params[:pedido_id]).update_all(estatus: 'Aprobado')
+    redirect_to :controller => 'pedidos', :action => 'index'
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_pedido
