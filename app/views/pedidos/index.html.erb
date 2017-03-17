@@ -9,29 +9,63 @@
     <thead>
         <tr>
             <th>#</th>
+            <% if current_user.admin? %>
+                <th>Cliente</th>
+            <% end %>
             <th>Tipo</th>
             <th>Estatus</th>
             <th>Productos</th>
-            <th colspan="4"></th>
+            <% if current_user.admin? %>
+                <th colspan="5"></th>
+            <% else %>
+                <th colspan="4"></th>
+            <% end %>
         </tr>
     </thead>
 
     <tbody>
-    <% @pedidos.each do |pedido| %>
-      <tr>
-        <td><%= pedido.id %></td>
-        <td><%= pedido.tipo %></td>
-        <td><%= pedido.estatus %></td>
-        <td>
-          <% pedido.productos.each do |producto| %>
-            <%= producto.cantidad.to_s + ' ' + producto.nombre  %> <br>
-          <% end %>
-        </td>
-        <td><%= link_to "Agregar Productos", productos_path(:pedido => pedido) %></td>
-        <td><%= link_to 'Ver', pedido %></td>
-        <td><%= link_to 'Editar', edit_pedido_path(pedido) %></td>
-        <td><%= link_to 'Borrar', pedido, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+    <% if current_user.admin? %>
+        <% @pedidosAll.each do |pedido| %>
+          <tr>
+            <td><%= pedido.id %></td>
+            <td><%= User.find(pedido.user_id).nombre%></td>
+            <td><%= pedido.tipo %></td>
+            <td>
+            <%= pedido.estatus %>
+            <% if pedido.estatus == 'Recibido' %>
+              <br><%= button_to "Aprobar", { :controller => "pedidos", :action => "aprobar" }, :method => :get, params: { pedido_id: pedido.id } %>
+            <% end %>
+            </td>
+            <td>
+              <% pedido.productos.each do |producto| %>
+                <%= producto.cantidad.to_s + ' ' + producto.nombre  %> <br>
+              <% end %>
+            </td>
+            <td><%= link_to "Agregar Productos", productos_path(:pedido => pedido) %></td>
+            <td><%= link_to 'Ver', pedido %></td>
+            <td><%= link_to 'Editar', edit_pedido_path(pedido) %></td>
+            <td><%= link_to 'Borrar', pedido, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+    <% else %>
+        <% @pedidos.each do |pedido| %>
+          <tr>
+            <td><%= pedido.id %></td>
+            <td><%= pedido.tipo %></td>
+            <td>
+            <%= pedido.estatus %>
+            </td>
+            <td>
+              <% pedido.productos.each do |producto| %>
+                <%= producto.cantidad.to_s + ' ' + producto.nombre  %> <br>
+              <% end %>
+            </td>
+            <td><%= link_to "Agregar Productos", productos_path(:pedido => pedido) %></td>
+            <td><%= link_to 'Ver', pedido %></td>
+            <td><%= link_to 'Editar', edit_pedido_path(pedido) %></td>
+            <td><%= link_to 'Borrar', pedido, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
     <% end %>
   </tbody>
 </table>

@@ -5,6 +5,7 @@ class PedidosController < ApplicationController
   # GET /pedidos.json
   def index
     @pedidos = current_user.pedidos
+    @pedidosAll = Pedido.all
   end
 
   # GET /pedidos/1
@@ -59,6 +60,11 @@ class PedidosController < ApplicationController
       format.html { redirect_to pedidos_url, notice: 'Pedido was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def aprobar
+    Pedido.where(id: params[:pedido_id]).update_all(estatus: 'Aprobado')
+    redirect_to :controller => 'pedidos', :action => 'index'
   end
 
   private
