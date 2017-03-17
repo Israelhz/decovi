@@ -5,6 +5,7 @@ class PedidosController < ApplicationController
   # GET /pedidos.json
   def index
     @pedidos = current_user.pedidos
+    @pedidosAll = Pedido.all
   end
 
   # GET /pedidos/1
