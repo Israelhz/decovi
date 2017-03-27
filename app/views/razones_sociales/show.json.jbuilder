@@ -1,0 +1,1 @@
+json.partial! "razones_sociales/razones_sociale", razones_sociale: @razones_sociale

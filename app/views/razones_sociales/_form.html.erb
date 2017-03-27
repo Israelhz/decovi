@@ -1,0 +1,50 @@
+<%= form_for(razones_sociale) do |f| %>
+  <% if razones_sociale.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(razones_sociale.errors.count, "error") %> prohibited this razones_sociale from being saved:</h2>
+
+      <ul>
+      <% razones_sociale.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :nombre %>
+    <%= f.text_field :nombre %>
+  </div>
+
+  <div class="field">
+    <%= f.label :rfc %>
+    <%= f.text_field :rfc %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </div>
+
+  <div class="field">
+    <%= f.label :direccion %>
+    <%= f.text_field :direccion %>
+  </div>
+
+  <div class="field">
+    <%= f.label :telefono %>
+    <%= f.text_field :telefono %>
+  </div>
+
+  <div class="field">
+    <%= f.label :notas %>
+    <%= f.text_area :notas %>
+  </div>
+
+  <%= f.hidden_field :user_id, value: current_user.id %>
+
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

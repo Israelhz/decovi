@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Razones Sociales</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Rfc</th>
+      <th>Email</th>
+      <th>Direccion</th>
+      <th>Telefono</th>
+      <th>Notas</th>
+      <th>Razones sociales</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @razones_sociales.each do |razones_sociale| %>
+      <tr>
+        <td><%= razones_sociale.nombre %></td>
+        <td><%= razones_sociale.rfc %></td>
+        <td><%= razones_sociale.email %></td>
+        <td><%= razones_sociale.direccion %></td>
+        <td><%= razones_sociale.telefono %></td>
+        <td><%= razones_sociale.notas %></td>
+        <td><%= link_to 'Ver Razones Comerciales', razones_comerciales_path(:razon => razones_sociale) %></td>
+        <td><%= link_to 'Show', razones_sociale %></td>
+        <td><%= link_to 'Edit', edit_razones_sociale_path(razones_sociale) %></td>
+        <td><%= link_to 'Destroy', razones_sociale, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Razones Sociale', new_razones_sociale_path %>

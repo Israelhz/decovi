@@ -1,0 +1,42 @@
+<%= form_for(razones_comerciale) do |f| %>
+  <% if razones_comerciale.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(razones_comerciale.errors.count, "error") %> prohibited this razones_comerciale from being saved:</h2>
+
+      <ul>
+      <% razones_comerciale.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :nombre %>
+    <%= f.text_field :nombre %>
+  </div>
+
+  <div class="field">
+    <%= f.label :area %>
+    <%= f.text_field :area %>
+  </div>
+
+  <div class="field">
+    <%= f.label :telefono1 %>
+    <%= f.text_field :telefono1 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :telefono2 %>
+    <%= f.text_field :telefono2 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :razones_sociale_id %>
+    <%= f.text_field :razones_sociale_id %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

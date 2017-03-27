@@ -1,0 +1,36 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nombre:</strong>
+  <%= @razones_sociale.nombre %>
+</p>
+
+<p>
+  <strong>Rfc:</strong>
+  <%= @razones_sociale.rfc %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @razones_sociale.email %>
+</p>
+
+<p>
+  <strong>Direccion:</strong>
+  <%= @razones_sociale.direccion %>
+</p>
+
+<p>
+  <strong>Telefono:</strong>
+  <%= @razones_sociale.telefono %>
+</p>
+
+<p>
+  <strong>Notas:</strong>
+  <%= @razones_sociale.notas %>
+</p>
+
+
+
+<%= link_to 'Edit', edit_razones_sociale_path(@razones_sociale) %> |
+<%= link_to 'Back', razones_sociales_path %>

@@ -1,0 +1,1 @@
+json.array! @razones_sociales, partial: 'razones_sociales/razones_sociale', as: :razones_sociale

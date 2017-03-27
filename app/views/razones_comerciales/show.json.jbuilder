@@ -1,0 +1,1 @@
+json.partial! "razones_comerciales/razones_comerciale", razones_comerciale: @razones_comerciale
