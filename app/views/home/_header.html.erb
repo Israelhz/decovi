@@ -62,6 +62,9 @@
                             <% if current_user.empresa? %>
                                 <li><%= link_to 'Workers', workers_index_path %></li>
                             <% end %>
+                            <% if current_user.individuo? %>
+                                <li><%= link_to 'Direcciones de Entrega', direcciones_entregas_path %></li>
+                            <% end %>
                         </ul>
                     </li>
                 <% end %>
