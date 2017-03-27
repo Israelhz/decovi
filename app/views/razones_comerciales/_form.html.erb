@@ -31,12 +31,8 @@
     <%= f.text_field :telefono2 %>
   </div>
 
-  <div class="field">
-    <%= f.label :razones_sociale_id %>
-    <%= f.text_field :razones_sociale_id %>
-  </div>
-
   <div class="actions">
+    <%= f.hidden_field :razones_sociale_id, value: @razones_sociale.id %>
     <%= f.submit %>
   </div>
 <% end %>
