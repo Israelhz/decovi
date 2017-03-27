@@ -1,0 +1,54 @@
+<%= form_for(direcciones_entrega) do |f| %>
+  <% if direcciones_entrega.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(direcciones_entrega.errors.count, "error") %> prohibited this direcciones_entrega from being saved:</h2>
+
+      <ul>
+      <% direcciones_entrega.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :estado %>
+    <%= f.text_field :estado %>
+  </div>
+
+  <div class="field">
+    <%= f.label :municipio %>
+    <%= f.text_field :municipio %>
+  </div>
+
+  <div class="field">
+    <%= f.label :colonia %>
+    <%= f.text_field :colonia %>
+  </div>
+
+  <div class="field">
+    <%= f.label :numero %>
+    <%= f.number_field :numero %>
+  </div>
+
+  <div class="field">
+    <%= f.label :cp %>
+    <%= f.number_field :cp %>
+  </div>
+
+  <div class="field">
+    <%= f.label :telefono %>
+    <%= f.text_field :telefono %>
+  </div>
+
+  <div class="field">
+    <%= f.label :notas %>
+    <%= f.text_area :notas %>
+  </div>
+<h3> <%= current_user.id %> </h3>
+  <%= f.hidden_field :user_id, value: current_user.id %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

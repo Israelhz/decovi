@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :pedidos
-
+  has_many :direcciones_entregas
   def active_for_authentication? 
     super && aprobado? 
   end 

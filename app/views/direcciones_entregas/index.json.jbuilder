@@ -1,0 +1,1 @@
+json.array! @direcciones_entregas, partial: 'direcciones_entregas/direcciones_entrega', as: :direcciones_entrega

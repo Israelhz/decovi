@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :direcciones_entregas
   resources :productos
   get 'pedidos/aprobar' => 'pedidos#aprobar'
   resources :pedidos
