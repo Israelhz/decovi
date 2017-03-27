@@ -1,0 +1,1 @@
+json.partial! "direcciones_entregas/direcciones_entrega", direcciones_entrega: @direcciones_entrega

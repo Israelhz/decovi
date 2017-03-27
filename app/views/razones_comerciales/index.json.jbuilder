@@ -1,0 +1,1 @@
+json.array! @razones_comerciales, partial: 'razones_comerciales/razones_comerciale', as: :razones_comerciale

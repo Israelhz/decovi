@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nombre:</strong>
+  <%= @razones_comerciale.nombre %>
+</p>
+
+<p>
+  <strong>Area:</strong>
+  <%= @razones_comerciale.area %>
+</p>
+
+<p>
+  <strong>Telefono1:</strong>
+  <%= @razones_comerciale.telefono1 %>
+</p>
+
+<p>
+  <strong>Telefono2:</strong>
+  <%= @razones_comerciale.telefono2 %>
+</p>
+
+
+<%= link_to 'Edit', edit_razones_comerciale_path(@razones_comerciale) %> |
+<%= link_to 'Back', razones_comerciales_path(:razon => @razones_sociale) %>

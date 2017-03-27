@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :razones_comerciales
+  resources :razones_sociales
+  resources :direcciones_facturas
+  resources :direcciones_entregas
   resources :productos
   get 'pedidos/aprobar' => 'pedidos#aprobar'
   resources :pedidos

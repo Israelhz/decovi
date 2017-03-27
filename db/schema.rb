@@ -10,7 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170310213300) do
+ActiveRecord::Schema.define(version: 20170327014648) do
+
+  create_table "direcciones_entregas", force: :cascade do |t|
+    t.string   "estado"
+    t.string   "municipio"
+    t.string   "colonia"
+    t.integer  "numero"
+    t.integer  "cp"
+    t.string   "telefono"
+    t.text     "notas"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_direcciones_entregas_on_user_id"
+  end
+
+  create_table "direcciones_facturas", force: :cascade do |t|
+    t.string   "estado"
+    t.string   "municipio"
+    t.string   "colonia"
+    t.integer  "numero"
+    t.integer  "cp"
+    t.string   "rfc"
+    t.text     "notas"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_direcciones_facturas_on_user_id"
+  end
 
   create_table "pedidos", force: :cascade do |t|
     t.text     "tipo"
@@ -29,6 +57,30 @@ ActiveRecord::Schema.define(version: 20170310213300) do
     t.datetime "updated_at", null: false
     t.integer  "pedido_id"
     t.index ["pedido_id"], name: "index_productos_on_pedido_id"
+  end
+
+  create_table "razones_comerciales", force: :cascade do |t|
+    t.string   "nombre"
+    t.string   "area"
+    t.string   "telefono1"
+    t.string   "telefono2"
+    t.integer  "razones_sociale_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.index ["razones_sociale_id"], name: "index_razones_comerciales_on_razones_sociale_id"
+  end
+
+  create_table "razones_sociales", force: :cascade do |t|
+    t.string   "nombre"
+    t.string   "rfc"
+    t.string   "email"
+    t.string   "direccion"
+    t.string   "telefono"
+    t.text     "notas"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_razones_sociales_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
