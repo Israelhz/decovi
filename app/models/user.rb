@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   has_many :pedidos
   has_many :direcciones_entregas
+  has_many :direcciones_facturas
   def active_for_authentication? 
     super && aprobado? 
   end 

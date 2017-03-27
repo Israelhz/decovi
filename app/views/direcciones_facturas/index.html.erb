@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Direcciones Facturas</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Estado</th>
+      <th>Municipio</th>
+      <th>Colonia</th>
+      <th>Numero</th>
+      <th>Cp</th>
+      <th>Rfc</th>
+      <th>Notas</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @direcciones_facturas.each do |direcciones_factura| %>
+      <tr>
+        <td><%= direcciones_factura.estado %></td>
+        <td><%= direcciones_factura.municipio %></td>
+        <td><%= direcciones_factura.colonia %></td>
+        <td><%= direcciones_factura.numero %></td>
+        <td><%= direcciones_factura.cp %></td>
+        <td><%= direcciones_factura.rfc %></td>
+        <td><%= direcciones_factura.notas %></td>
+        <td><%= link_to 'Show', direcciones_factura %></td>
+        <td><%= link_to 'Edit', edit_direcciones_factura_path(direcciones_factura) %></td>
+        <td><%= link_to 'Destroy', direcciones_factura, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Direcciones Factura', new_direcciones_factura_path %>

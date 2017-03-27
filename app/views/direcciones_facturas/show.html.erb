@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Estado:</strong>
+  <%= @direcciones_factura.estado %>
+</p>
+
+<p>
+  <strong>Municipio:</strong>
+  <%= @direcciones_factura.municipio %>
+</p>
+
+<p>
+  <strong>Colonia:</strong>
+  <%= @direcciones_factura.colonia %>
+</p>
+
+<p>
+  <strong>Numero:</strong>
+  <%= @direcciones_factura.numero %>
+</p>
+
+<p>
+  <strong>Cp:</strong>
+  <%= @direcciones_factura.cp %>
+</p>
+
+<p>
+  <strong>Rfc:</strong>
+  <%= @direcciones_factura.rfc %>
+</p>
+
+<p>
+  <strong>Notas:</strong>
+  <%= @direcciones_factura.notas %>
+</p>
+
+<%= link_to 'Edit', edit_direcciones_factura_path(@direcciones_factura) %> |
+<%= link_to 'Back', direcciones_facturas_path %>
