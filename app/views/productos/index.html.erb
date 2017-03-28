@@ -8,8 +8,7 @@
     <tr>
       <th>Nombre</th>
       <th>Acabado</th>
-      <th>Cantidad</th>
-      <th colspan="3"></th>
+      <th colspan="2"></th>
     </tr>
   </thead>
 
@@ -18,16 +17,18 @@
       <tr>
         <td><%= producto.nombre %></td>
         <td><%= producto.acabado %></td>
-        <td><%= producto.cantidad %></td>
         <td><%= link_to 'Ver', producto %></td>
-        <td><%= link_to 'Editar', edit_producto_path(producto) %></td>
-        <td><%= link_to 'Borrar', producto, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if current_user.admin? %>
+          <td><%= link_to 'Editar', edit_producto_path(producto) %></td>
+          <td><%= link_to 'Borrar', producto, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'Nuevo Producto', new_producto_path(:pedido => @pedido), class:'btn btn-primary' %>
-<%= link_to 'Back', pedidos_path, class:'btn btn-primary' %>
+<% if current_user.admin? %>
+  <%= link_to 'Nuevo Producto', new_producto_path, class:'btn btn-primary' %>
+<% end %>
+<br>

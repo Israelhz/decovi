@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170327014648) do
+ActiveRecord::Schema.define(version: 20170328201825) do
 
   create_table "direcciones_entregas", force: :cascade do |t|
     t.string   "estado"
@@ -40,6 +40,14 @@ ActiveRecord::Schema.define(version: 20170327014648) do
     t.index ["user_id"], name: "index_direcciones_facturas_on_user_id"
   end
 
+  create_table "facturas", force: :cascade do |t|
+    t.text     "folio"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "pedido_id"
+  end
+
   create_table "pedidos", force: :cascade do |t|
     t.text     "tipo"
     t.text     "estatus"
@@ -49,14 +57,19 @@ ActiveRecord::Schema.define(version: 20170327014648) do
     t.index ["user_id"], name: "index_pedidos_on_user_id"
   end
 
+  create_table "product_orders", force: :cascade do |t|
+    t.integer  "cantidad"
+    t.integer  "producto_id"
+    t.integer  "pedido_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "productos", force: :cascade do |t|
     t.text     "nombre"
     t.text     "acabado"
-    t.integer  "cantidad"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "pedido_id"
-    t.index ["pedido_id"], name: "index_productos_on_pedido_id"
   end
 
   create_table "razones_comerciales", force: :cascade do |t|

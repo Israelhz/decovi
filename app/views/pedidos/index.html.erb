@@ -37,11 +37,11 @@
             <% end %>
             </td>
             <td>
-              <% pedido.productos.each do |producto| %>
-                <%= producto.cantidad.to_s + ' ' + producto.nombre  %> <br>
+              <% pedido.product_orders.each do |producto| %>
+                <%= producto.cantidad.to_s + ' ' + Producto.find(producto.producto_id).nombre + ' ' + Producto.find(producto.producto_id).acabado %> <br>
               <% end %>
             </td>
-            <td><%= link_to "Agregar Productos", productos_path(:pedido => pedido) %></td>
+            <td><%= link_to "Agregar Productos", product_orders_path(:pedido => pedido) %></td>
             <td><%= link_to 'Ver', pedido %></td>
             <td><%= link_to 'Editar', edit_pedido_path(pedido) %></td>
             <td><%= link_to 'Borrar', pedido, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -60,7 +60,7 @@
                 <%= producto.cantidad.to_s + ' ' + producto.nombre  %> <br>
               <% end %>
             </td>
-            <td><%= link_to "Agregar Productos", productos_path(:pedido => pedido) %></td>
+            <td><%= link_to "Agregar Productos", product_orders_path(:pedido => pedido) %></td>
             <td><%= link_to 'Ver', pedido %></td>
             <td><%= link_to 'Editar', edit_pedido_path(pedido) %></td>
             <td><%= link_to 'Borrar', pedido, method: :delete, data: { confirm: 'Are you sure?' } %></td>
