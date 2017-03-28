@@ -6,9 +6,28 @@
 </p>
 
 <p>
+  <strong>Productos:</strong>
+	<% @pedido.product_orders.each do |producto| %>
+	    <%= producto.cantidad.to_s + ' ' + Producto.find(producto.producto_id).nombre + ' ' + Producto.find(producto.producto_id).acabado %> <br>
+	<% end %>
+</p>
+
+<p>
   <strong>Estatus:</strong>
   <%= @pedido.estatus %>
 </p>
+
+<% if Factura.where(pedido_id: @pedido.id).exists? %>
+  <p>
+    <strong>Factura:</strong>
+    <br>
+    Folio: <%= Factura.where(pedido_id: @pedido.id).first.folio %>
+    <br>
+    Imagen: <br>
+    <%= image_tag Factura.where(pedido_id: @pedido.id).first.image.url(:medium) %>
+    <br>  
+  </p>
+<% end %>
 
 <%= link_to 'Edit', edit_pedido_path(@pedido) %> |
 <%= link_to 'Back', pedidos_path %>

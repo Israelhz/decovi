@@ -1,5 +1,6 @@
 class FacturasController < ApplicationController
   before_action :set_factura, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, :correct_user
 
   # GET /facturas
   # GET /facturas.json
@@ -14,16 +15,19 @@ class FacturasController < ApplicationController
 
   # GET /facturas/new
   def new
+    @pedido = Pedido.find(params[:pedido])
     @factura = Factura.new
   end
 
   # GET /facturas/1/edit
   def edit
+    @pedido = Pedido.find(@factura.pedido_id)
   end
 
   # POST /facturas
   # POST /facturas.json
   def create
+    @pedido = Pedido.find(params[:factura][:pedido_id])
     @factura = Factura.new(factura_params)
 
     respond_to do |format|
@@ -69,6 +73,12 @@ class FacturasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def factura_params
-      params.require(:factura).permit(:folio, :user_id)
+      params.require(:factura).permit(:folio, :user_id, :pedido_id, :image)
+    end
+
+    def correct_user
+      if !current_user.admin?
+        redirect_to :controller => 'home', :action => 'index'
+      end    
     end
 end
