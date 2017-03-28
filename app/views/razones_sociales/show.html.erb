@@ -1,3 +1,5 @@
+<div class="divide80"></div>
+
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -6,7 +8,7 @@
 </p>
 
 <p>
-  <strong>Rfc:</strong>
+  <strong>RFC:</strong>
   <%= @razones_sociale.rfc %>
 </p>
 
@@ -16,12 +18,12 @@
 </p>
 
 <p>
-  <strong>Direccion:</strong>
+  <strong>Dirección:</strong>
   <%= @razones_sociale.direccion %>
 </p>
 
 <p>
-  <strong>Telefono:</strong>
+  <strong>Teléfono:</strong>
   <%= @razones_sociale.telefono %>
 </p>
 
@@ -32,5 +34,7 @@
 
 
 
-<%= link_to 'Edit', edit_razones_sociale_path(@razones_sociale) %> |
-<%= link_to 'Back', razones_sociales_path %>
+<%= link_to 'Editar', edit_razones_sociale_path(@razones_sociale), class:'btn btn-primary' %> |
+<%= link_to 'Regresar', razones_sociales_path, class:'btn btn-primary' %>
+
+<div class="divide40"></div>

@@ -1,6 +1,10 @@
-<h1>Editing Razones Comerciale</h1>
+<div class="divide80"></div>
+
+<h1>Editar Razón Comercial</h1>
 
 <%= render 'form', razones_comerciale: @razones_comerciale %>
 
-<%= link_to 'Show', @razones_comerciale %> |
-<%= link_to 'Back', razones_comerciales_path(:razon => @razones_sociale) %>
+<%= link_to 'Ver', @razones_comerciale, class:'btn btn-primary' %> |
+<%= link_to 'Regresar', razones_comerciales_path(:razon => @razones_sociale), class:'btn btn-primary' %>
+
+<div class="divide40"></div>
