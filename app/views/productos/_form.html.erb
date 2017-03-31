@@ -21,14 +21,7 @@
     <%= f.text_area :acabado %>
   </div>
 
-  <div class="field">
-    <%= f.label :cantidad %>
-    <%= f.number_field :cantidad %>
-  </div>
-
   <div class="actions">
-    <%= f.hidden_field :pedido_id, value: @pedido.id %>
-
     <%= f.submit %>
   </div>
 <% end %>

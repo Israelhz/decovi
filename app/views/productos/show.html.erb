@@ -9,9 +9,8 @@
   <div class="card-block">
     <h4 class="card-title"><%= @producto.nombre %></h4>
     <p class="card-text">Acabado: <%= @producto.acabado %> </p>
-    <p class="card-text">Cantidad: <%= @producto.cantidad %> </p>
     <%= link_to 'Edit', edit_producto_path(@producto), class:'btn btn-primary' %> |
-	<%= link_to 'Back', productos_path(:pedido => @pedido), class:'btn btn-primary' %>
+	<%= link_to 'Back', productos_path, class:'btn btn-primary' %>
   </div>
 </div>
 

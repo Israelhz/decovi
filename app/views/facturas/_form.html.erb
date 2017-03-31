@@ -1,0 +1,29 @@
+<%= form_for(factura, html: {multipart: true}) do |f| %>
+  <% if factura.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(factura.errors.count, "error") %> prohibited this factura from being saved:</h2>
+
+      <ul>
+      <% factura.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :folio %>
+    <%= f.text_area :folio %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :image %>
+    <%= f.file_field :image, class: "form-control" %>
+  </div>
+
+  <div class="actions">
+    <%= f.hidden_field :pedido_id, value: @pedido.id %>
+    <%=f.hidden_field :user_id, :value => current_user.id%>
+    <%= f.submit %>
+  </div>
+<% end %>

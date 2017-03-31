@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Folio:</strong>
+  <%= @factura.folio %>
+</p>
+
+<p>
+  <strong>Factura:</strong> 
+  <br>
+  <%= image_tag @factura.image.url(:medium) %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @factura.user_id %>
+</p>
+
+<p>
+  <strong>Pedido:</strong>
+  <%= @factura.pedido_id %>
+</p>
+
+<%= link_to 'Edit', edit_factura_path(@factura) %> |
+<%= link_to 'Back', facturas_path %>

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :facturas
+  resources :product_orders
   resources :razones_comerciales
   resources :razones_sociales
   resources :direcciones_facturas
