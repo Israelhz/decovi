@@ -1,17 +1,20 @@
+
+<div class="divide80"></div>
+
 <p id="notice"><%= notice %></p>
 
 <h1>Razones Sociales</h1>
 
-<table>
+<table class="table table-hover">
   <thead>
     <tr>
       <th>Nombre</th>
-      <th>Rfc</th>
+      <th>RFC</th>
       <th>Email</th>
-      <th>Direccion</th>
-      <th>Telefono</th>
+      <th>Dirección</th>
+      <th>Teléfono</th>
       <th>Notas</th>
-      <th>Razones sociales</th>
+      <th>Razones comerciales</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -26,9 +29,9 @@
         <td><%= razones_sociale.telefono %></td>
         <td><%= razones_sociale.notas %></td>
         <td><%= link_to 'Ver Razones Comerciales', razones_comerciales_path(:razon => razones_sociale) %></td>
-        <td><%= link_to 'Show', razones_sociale %></td>
-        <td><%= link_to 'Edit', edit_razones_sociale_path(razones_sociale) %></td>
-        <td><%= link_to 'Destroy', razones_sociale, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Ver', razones_sociale %></td>
+        <td><%= link_to 'Editar', edit_razones_sociale_path(razones_sociale) %></td>
+        <td><%= link_to 'Eliminar', razones_sociale, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -36,4 +39,6 @@
 
 <br>
 
-<%= link_to 'New Razones Sociale', new_razones_sociale_path %>
+<%= link_to 'Nueva Razón Social', new_razones_sociale_path, class:'btn btn-primary' %>
+
+<div class="divide40"></div>
