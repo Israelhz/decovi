@@ -11,6 +11,13 @@
     </div>
   <% end %>
 
+  <% if current_user.admin
+        f.select :user_id, options_for_select(@usuarios.collect { |user|
+        [user.nombre, user.id] }, 1) 
+      else
+        end
+  %>
+
   <div class="field">
     <%= f.label :tipo %>
     <%= f.text_area :tipo %>

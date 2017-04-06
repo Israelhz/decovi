@@ -1,8 +1,9 @@
+<div class="divide80"></div>
 <p id="notice"><%= notice %></p>
 
-<h1>Product Orders</h1>
+<h1>Productos</h1>
 
-<table>
+<table class="table table-hover">
   <thead>
     <tr>
       <th>Cantidad</th>
@@ -18,9 +19,9 @@
         <td><%= product_order.cantidad %></td>
         <td><%= Producto.find(product_order.producto_id).nombre %></td>
         <td><%= Producto.find(product_order.producto_id).acabado %></td>
-        <td><%= link_to 'Show', product_order %></td>
-        <td><%= link_to 'Edit', edit_product_order_path(product_order) %></td>
-        <td><%= link_to 'Destroy', product_order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Ver', product_order %></td>
+        <td><%= link_to 'Editar', edit_product_order_path(product_order) %></td>
+        <td><%= link_to 'Eliminar', product_order, method: :delete, data: { confirm: '¿Desea eliminar el producto?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,5 +29,6 @@
 
 <br>
 
-<%= link_to 'New Product Order', new_product_order_path(:pedido => @pedido) %>
-<%= link_to 'Back', pedidos_path %>
+<%= link_to 'Nuevo producto', new_product_order_path(:pedido => @pedido) %>
+<%= link_to 'Regresar', pedidos_path %>
+<div class="divide40"></div>

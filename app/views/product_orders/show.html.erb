@@ -1,3 +1,5 @@
+<div class="divide80"></div>
+
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -15,5 +17,7 @@
   <%= @product_order.pedido_id %>
 </p>
 
-<%= link_to 'Edit', edit_product_order_path(@product_order) %> |
-<%= link_to 'Back', product_orders_path(:pedido => @pedido) %>
+<%= link_to 'Editar', edit_product_order_path(@product_order), class:'btn btn-primary'  %> |
+<%= link_to 'Regresar', product_orders_path(:pedido => @pedido), class:'btn btn-primary'  %>
+
+<div class="divide40"></div>

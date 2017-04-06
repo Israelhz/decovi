@@ -16,6 +16,7 @@ class PedidosController < ApplicationController
   # GET /pedidos/new
   def new
     @pedido = current_user.pedidos.build
+    @usuarios = User.all
   end
 
   # GET /pedidos/1/edit
@@ -25,8 +26,12 @@ class PedidosController < ApplicationController
   # POST /pedidos
   # POST /pedidos.json
   def create
-    @pedido = current_user.pedidos.build(pedido_params)
-
+    if current_user.admin  
+      @usuario = User.find(params[:pedido][:user_id])
+      @pedido = @usuario.pedidos.build(pedido_params)
+    else
+      @pedido = current_user.pedidos.build(pedido_params)
+    end
     respond_to do |format|
       if @pedido.save
         format.html { redirect_to @pedido, notice: 'Pedido was successfully created.' }
