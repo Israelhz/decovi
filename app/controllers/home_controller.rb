@@ -13,4 +13,11 @@ class HomeController < ApplicationController
 
   def contacto
   end
+
+  def reportes
+    @reporte = ProductOrder.group("producto_id").sum(:cantidad)
+    @cantPedidos = Pedido.count()
+    @individuos = User.where(:individuo => true).count
+    @empresas = User.where(:empresa => true).count
+  end 
 end

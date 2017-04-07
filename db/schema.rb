@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170328202510) do
+ActiveRecord::Schema.define(version: 20170406190941) do
 
   create_table "direcciones_entregas", force: :cascade do |t|
     t.string   "estado"
@@ -55,9 +55,17 @@ ActiveRecord::Schema.define(version: 20170328202510) do
   create_table "pedidos", force: :cascade do |t|
     t.text     "tipo"
     t.text     "estatus"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.integer  "user_id"
+    t.integer  "razones_comerciale_id"
+    t.integer  "razones_sociale_id"
+    t.integer  "direcciones_entrega_id"
+    t.integer  "direcciones_factura_id"
+    t.index ["direcciones_entrega_id"], name: "index_pedidos_on_direcciones_entrega_id"
+    t.index ["direcciones_factura_id"], name: "index_pedidos_on_direcciones_factura_id"
+    t.index ["razones_comerciale_id"], name: "index_pedidos_on_razones_comerciale_id"
+    t.index ["razones_sociale_id"], name: "index_pedidos_on_razones_sociale_id"
     t.index ["user_id"], name: "index_pedidos_on_user_id"
   end
 
