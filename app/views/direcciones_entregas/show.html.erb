@@ -1,3 +1,5 @@
+<div class="divide80"></div>
+
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -16,17 +18,17 @@
 </p>
 
 <p>
-  <strong>Numero:</strong>
+  <strong>Número:</strong>
   <%= @direcciones_entrega.numero %>
 </p>
 
 <p>
-  <strong>Cp:</strong>
+  <strong>C.P:</strong>
   <%= @direcciones_entrega.cp %>
 </p>
 
 <p>
-  <strong>Telefono:</strong>
+  <strong>Teléfono:</strong>
   <%= @direcciones_entrega.telefono %>
 </p>
 
@@ -36,5 +38,7 @@
 </p>
 
 
-<%= link_to 'Edit', edit_direcciones_entrega_path(@direcciones_entrega) %> |
-<%= link_to 'Back', direcciones_entregas_path %>
+<%= link_to 'Editar', edit_direcciones_entrega_path(@direcciones_entrega), class:'btn btn-primary'%> |
+<%= link_to 'Regresar', direcciones_entregas_path, class:'btn btn-primary'  %>
+
+<div class="divide40"></div>

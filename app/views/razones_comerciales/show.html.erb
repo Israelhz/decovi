@@ -1,3 +1,5 @@
+<div class="divide80"></div>
+
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -6,20 +8,23 @@
 </p>
 
 <p>
-  <strong>Area:</strong>
+  <strong>Área:</strong>
   <%= @razones_comerciale.area %>
 </p>
 
 <p>
-  <strong>Telefono1:</strong>
+  <strong>Teléfono 1:</strong>
   <%= @razones_comerciale.telefono1 %>
 </p>
 
 <p>
-  <strong>Telefono2:</strong>
+  <strong>Teléfono 2:</strong>
   <%= @razones_comerciale.telefono2 %>
 </p>
 
 
-<%= link_to 'Edit', edit_razones_comerciale_path(@razones_comerciale) %> |
-<%= link_to 'Back', razones_comerciales_path(:razon => @razones_sociale) %>
+<%= link_to 'Editar', edit_razones_comerciale_path(@razones_comerciale), class:'btn btn-primary' %> |
+<%= link_to 'Regresar', razones_comerciales_path(:razon => @razones_sociale), class:'btn btn-primary' %>
+
+
+<div class="divide40"></div>
