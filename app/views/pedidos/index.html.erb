@@ -59,8 +59,8 @@
             <%= pedido.estatus %>
             </td>
             <td>
-              <% pedido.productos.each do |producto| %>
-                <%= producto.cantidad.to_s + ' ' + producto.nombre  %> <br>
+              <% pedido.product_orders.each do |producto| %>
+                <%= producto.cantidad.to_s + ' ' + Producto.find(producto.producto_id).nombre  %> <br>
               <% end %>
             </td>
             <td><%= link_to "Agregar Productos", product_orders_path(:pedido => pedido) %></td>

@@ -3,13 +3,22 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6 margin20">
-            <h2 class="heading">Sobre Decovi</h2>
+            <h2 class="heading"><%= @content1.title %></h2>
             <p>
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni. Dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum
+                <%= @content1.body %>
             </p>
+            <% if user_signed_in? %>
+                <% if current_user.admin? %>
+                    <%= link_to 'Edit', edit_content_path(@content1) %>
+                <% end %>
+            <% end %>
         </div>
         <div class="col-md-6">
-            <%= image_tag("imgDecovi.png", class:'img-responsive') %>
+            <% if @content1.image.exists? %>
+                <%= image_tag @content1.image.url(:medium) %>
+            <% else %>
+                <%= image_tag("imgDecovi.png", class:'img-responsive') %>
+            <% end %>
         </div>
     </div>
 </div>
