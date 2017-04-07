@@ -16,17 +16,46 @@ class PedidosController < ApplicationController
   # GET /pedidos/new
   def new
     @pedido = current_user.pedidos.build
+    @usuarios = User.all
+    if current_user.empresa
+      @razones_sociales = current_user.razones_sociales
+      @razones_comerciales = RazonesComerciale.all
+    end
+    if current_user.individuo
+      @direcciones_facturas = current_user.direcciones_facturas
+      @direcciones_entregas = current_user.direcciones_entregas
+    end
   end
 
   # GET /pedidos/1/edit
   def edit
+    if current_user.admin
+      @usuarios = User.all
+      @razones_sociales = User.find(@pedido.user_id).razones_sociales
+      @razones_comerciales = RazonesComerciale.all
+      @direcciones_facturas = User.find(@pedido.user_id).direcciones_facturas
+      @direcciones_entregas = User.find(@pedido.user_id).direcciones_entregas
+    end
+    if current_user.empresa
+      @razones_sociales = current_user.razones_sociales
+      @razones_comerciales = RazonesComerciale.all
+    end
+    if current_user.individuo
+      @direcciones_facturas = current_user.direcciones_facturas
+      @direcciones_entregas = current_user.direcciones_entregas
+    end
   end
 
   # POST /pedidos
   # POST /pedidos.json
   def create
-    @pedido = current_user.pedidos.build(pedido_params)
-
+    
+    if current_user.admin  
+      @usuario = User.find(params[:pedido][:user_id])
+      @pedido = @usuario.pedidos.build(pedido_params)
+    else
+      @pedido = current_user.pedidos.build(pedido_params)
+    end
     respond_to do |format|
       if @pedido.save
         format.html { redirect_to @pedido, notice: 'Pedido was successfully created.' }
@@ -67,6 +96,7 @@ class PedidosController < ApplicationController
     redirect_to :controller => 'pedidos', :action => 'index'
   end
 
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_pedido
@@ -75,6 +105,6 @@ class PedidosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def pedido_params
-      params.require(:pedido).permit(:tipo, :estatus)
+      params.require(:pedido).permit(:tipo, :estatus, :razones_sociale_id, :razones_comerciale_id, :direcciones_entrega_id, :direcciones_factura_id)
     end
 end

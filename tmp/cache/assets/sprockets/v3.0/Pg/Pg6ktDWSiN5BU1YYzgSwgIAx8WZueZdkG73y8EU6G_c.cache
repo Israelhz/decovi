@@ -1,0 +1,5 @@
+I"è(function() {
+  $("#razonesComerciales").empty().append("<%= escape_javascript(render(:partial => @razones_comerciales)) %>");
+
+}).call(this);
+:ET

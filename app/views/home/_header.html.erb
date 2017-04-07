@@ -58,6 +58,7 @@
                             <li><%= link_to 'Edit', edit_user_registration_path %></li>
                             <% if current_user.admin? %>
                                 <li><%= link_to 'Users', users_index_path %></li>
+                                <li><%= link_to 'Reportes', home_reportes_path %></li>
                             <% end %>
                             <% if current_user.empresa? %>
                                 <li><%= link_to 'Workers', workers_index_path %></li>

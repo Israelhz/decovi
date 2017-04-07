@@ -11,14 +11,49 @@
     </div>
   <% end %>
 
+  <% if current_user.admin? %>
+  <%= f.label :user_id %>
+    <%= f.select :user_id, options_for_select(@usuarios.collect { |user|
+    [user.nombre, user.id] }, 1) %>  
+  <% end %>
+
   <div class="field">
     <%= f.label :tipo %>
-    <%= f.text_area :tipo %>
+    <%= f.select :tipo, options_for_select([['Línea', 'Línea'], ['Maquila', 'Maquila'], ['Especial','Especial']],0) %>
   </div>
 
-  <%=f.hidden_field :estatus, :value => "Recibido"%>
+  <% if current_user.empresa? || (current_user.admin? && User.find(@pedido.user_id).empresa? )%>
+    <div class="field">
+      <%= f.label :razones_sociale_id %> 
+      <%= f.select :razones_sociale_id, options_for_select(@razones_sociales.collect { |razon|
+      [razon.nombre, razon.id] }, 0) %>  
+    </div>
+
+    <div class="field">
+      <%= f.label :razones_comerciale_id %> 
+      <%= f.select :razones_comerciale_id, options_for_select(@razones_comerciales.collect { |razon|
+      [razon.nombre, razon.id] }, 0) %>  
+    </div>
+  <% end %>
+
+  <% if current_user.individuo? || (current_user.admin? && User.find(@pedido.user_id).individuo? ) %>
+    <div class="field">
+      <%= f.label :direcciones_entrega_id %> 
+      <%= f.select :direcciones_entrega_id, options_for_select(@direcciones_entregas.collect { |direccion|
+      [direccion.colonia + ' ' + direccion.numero.to_s + ', ' + direccion.municipio + ' ' + direccion.estado, direccion.id] },0 ) %>  
+    </div>
+
+    
+    <div class="field">
+      <%= f.label :direcciones_factura_id %> 
+      <%= f.select :direcciones_factura_id, options_for_select(@direcciones_facturas.collect { |direccion|
+      [direccion.colonia + ' ' + direccion.numero.to_s + ', ' + direccion.municipio + ' ' + direccion.estado, direccion.id] }, 0) %>  
+    </div>
+  <% end %>
+  <%=f.hidden_field :estatus, :value => "Recibido"%> 
 
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+

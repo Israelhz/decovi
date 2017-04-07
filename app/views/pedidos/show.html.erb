@@ -1,3 +1,4 @@
+<div class="divide80"></div>
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -17,6 +18,31 @@
   <%= @pedido.estatus %>
 </p>
 
+ <% if (current_user.individuo? || current_user.admin?) && @pedido.direcciones_entrega_id.present? && @pedido.direcciones_factura_id.present? %>
+    <% @entrega = DireccionesEntrega.find(@pedido.direcciones_entrega_id) %>
+    <% @factura = DireccionesFactura.find(@pedido.direcciones_factura_id) %>
+    <p>
+      <strong>Dirección de entrega: </strong> <%= @entrega.colonia + ' ' + @entrega.numero.to_s + ", " + @entrega.municipio + ' ' + @entrega.estado %>
+    </p>
+    <p>
+      <strong>Dirección de facturación: </strong> <%= @factura.colonia + ' ' + @factura.numero.to_s + ", " + @factura.municipio + ' ' + @factura.estado %>
+    </p>
+    
+<% end %>
+
+<% if (current_user.empresa? || current_user.admin?) && @pedido.razones_comerciale_id.present? && @pedido.razones_sociale_id.present? %>
+    <% @sociales = RazonesSociale.find(@pedido.razones_sociale_id) %>
+    <% @comerciales = RazonesComerciale.find(@pedido.razones_comerciale_id) %>
+    <p>
+      <strong>Razón Social: </strong> <%= @sociales.nombre%>
+    </p>
+    <p>
+      <strong>Razón Comercial: </strong> <%= @comerciales.nombre %>
+    </p>
+    
+<% end %>
+
+
 <% if Factura.where(pedido_id: @pedido.id).exists? %>
   <p>
     <strong>Factura:</strong>
@@ -24,10 +50,11 @@
     Folio: <%= Factura.where(pedido_id: @pedido.id).first.folio %>
     <br>
     Imagen: <br>
-    <%= image_tag Factura.where(pedido_id: @pedido.id).first.image.url(:medium) %>
+    <%= image_tag Factura.where(pedido_id: @pedido.id).first.image.url(:original) %>
     <br>  
   </p>
 <% end %>
 
-<%= link_to 'Edit', edit_pedido_path(@pedido) %> |
-<%= link_to 'Back', pedidos_path %>
+<%= link_to 'Editar', edit_pedido_path(@pedido), class:'btn btn-primary' %> |
+<%= link_to 'Regresar', pedidos_path, class:'btn btn-primary' %>
+<div class="divide40"></div>

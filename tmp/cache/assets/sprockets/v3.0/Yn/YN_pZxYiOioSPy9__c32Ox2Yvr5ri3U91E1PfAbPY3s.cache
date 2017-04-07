@@ -1,0 +1,16 @@
+I"z(function() {
+  $(document).ready(function() {
+    return $(".razones_sociale_selection").on("change", function() {
+      return $.ajax({
+        url: "/pedidos/get_razones_comerciales",
+        type: "GET",
+        dataType: "script",
+        data: {
+          company_id: $('.razones_sociale_selection option:selected').val()
+        }
+      });
+    });
+  });
+
+}).call(this);
+:ET
