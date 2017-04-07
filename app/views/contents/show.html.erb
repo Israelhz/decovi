@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @content.title %>
+</p>
+
+<p>
+  <strong>Body:</strong>
+  <%= @content.body %>
+</p>
+
+<% if @content.image.exists? %>
+	<p>
+	  <strong>Imagen:</strong> 
+	  <br>
+	  <%= image_tag @content.image.url(:medium) %>
+	</p>
+<% end %>
+<%= link_to 'Edit', edit_content_path(@content) %> |
+<%= link_to 'Back', root_path %>

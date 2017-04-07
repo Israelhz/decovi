@@ -1,7 +1,12 @@
 <section id="home-parallax" class="parallax" data-stellar-background-ratio="0.5">
     <div class="container text-center">
-        <h1 class="white">Bienvenido a DECOVI</h1>
-        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+        <h1 class="white"><%= @content1.title %></h1>
+        <p class="lead"><%= @content1.body %></p>
+        <% if user_signed_in? %>
+            <% if current_user.admin? %>
+                <%= link_to 'Edit', edit_content_path(@content1) %>
+            <% end %>
+        <% end %>
         <span class="parallax-buttons">
             <%= link_to 'Ver productos', home_productos_path, class: "btn border-white btn-lg"%>
         </span>
@@ -13,10 +18,15 @@
     <div class="row">
         <div class="col-sm-8 col-sm-offset-2">
             <div class="center-heading">
-                <h2>DECOVI</h2>
+                <h2><%= @content2.title %></h2>
                 <span class="center-line"></span>
                 <p class="sub-text margin40">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.  </p>
+                    <%= @content2.body %></p>
+                <% if user_signed_in? %>
+                    <% if current_user.admin? %>
+                        <%= link_to 'Edit', edit_content_path(@content2) %>
+                    <% end %>
+                <% end %>
             </div>
         </div>
 
@@ -25,38 +35,58 @@
     <div class="row">
         <div class="col-md-3 col-sm-6 margin30">
             <div class="colored-boxed green">
-                <h3>Decovi</h3>
+                <h3><%= @content3.title %></h3>
                 <span class="center-line"></span>
                 <p>
-                    Nullam vulputate lorem ut leo. Sed volutpat. Etiam non pede. Nullam et mauris. 
+                    <%= @content3.body %>
                 </p>
+                <% if user_signed_in? %>
+                    <% if current_user.admin? %>
+                        <%= link_to 'Edit', edit_content_path(@content3) %>
+                    <% end %>
+                <% end %>
             </div>
         </div><!--colored boxed col end-->
         <div class="col-md-3 col-sm-6 margin30">
             <div class="colored-boxed dark">
-                <h3>Decovi</h3>
+                <h3><%= @content4.title %></h3>
                 <span class="center-line"></span>
                 <p>
-                    Nullam vulputate lorem ut leo. Sed volutpat. Etiam non pede. Nullam et mauris. 
+                    <%= @content4.body %> 
                 </p>
+                <% if user_signed_in? %>
+                    <% if current_user.admin? %>
+                        <%= link_to 'Edit', edit_content_path(@content4) %>
+                    <% end %>
+                <% end %>
             </div>
         </div><!--colored boxed col end-->
         <div class="col-md-3 col-sm-6 margin30">
             <div class="colored-boxed blue">
-                <h3>Decovi</h3>
+                <h3><%= @content5.title %></h3>
                 <span class="center-line"></span>
                 <p>
-                    Nullam vulputate lorem ut leo. Sed volutpat. Etiam non pede. Nullam et mauris. 
+                    <%= @content5.body %> 
                 </p>
+                <% if user_signed_in? %>
+                    <% if current_user.admin? %>
+                        <%= link_to 'Edit', edit_content_path(@content5) %>
+                    <% end %>
+                <% end %>
             </div>
         </div><!--colored boxed col end-->
         <div class="col-md-3 col-sm-6 margin30">
             <div class="colored-boxed red">
-                <h3>Decovi</h3>
+                <h3><%= @content6.title %></h3>
                 <span class="center-line"></span>
                 <p>
-                    Nullam vulputate lorem ut leo. Sed volutpat. Etiam non pede. Nullam et mauris. 
+                    <%= @content6.body %>
                 </p>
+                <% if user_signed_in? %>
+                    <% if current_user.admin? %>
+                        <%= link_to 'Edit', edit_content_path(@content6) %>
+                    <% end %>
+                <% end %>
             </div>
         </div><!--colored boxed col end-->
     </div>

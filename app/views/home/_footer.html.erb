@@ -4,10 +4,15 @@
                 <div class="row">
                     <div class="col-md-3 col-sm-6 margin30">
                         <div class="footer-col">
-                            <h3>Decovi</h3>
+                            <h3><%= Content.find(7).title %></h3>
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lorem quam, adipiscing condimentum tristique vel, eleifend sed turpis. Pellentesque cursus arcu id magna euismod in elementum purus molestie.
+                                <%= Content.find(7).body %>
                             </p>
+                            <% if user_signed_in? %>
+                                <% if current_user.admin? %>
+                                    <%= link_to 'Edit', edit_content_path(Content.find(7)) %>
+                                <% end %>
+                            <% end %>
                         </div>                        
                     </div><!--footer col-->
                     <div class="col-md-3 col-sm-6 margin30">
