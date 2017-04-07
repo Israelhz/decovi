@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :contents
   resources :facturas
   resources :product_orders
   resources :razones_comerciales
