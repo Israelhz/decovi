@@ -1,0 +1,1 @@
+json.array! @productos_especiales, partial: 'productos_especiales/productos_especiale', as: :productos_especiale
