@@ -72,7 +72,7 @@ class ProductosEspecialesController < ApplicationController
   end
 
   def aprobar
-    ProductosEspeciale.where(id: params[:productos_especiale_id]).update_all(aprobado: 'true')
+    ProductosEspeciale.where(id: params[:productos_especiale_id]).update_all(aprobado: 'Aprobado')
     redirect_to :controller => 'productos_especiales', :action => 'index'
   end
 

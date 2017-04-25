@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :productos_especiales
   resources :contents
   resources :facturas
   resources :product_orders
