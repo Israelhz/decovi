@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nombre:</strong>
+  <%= @productos_especiale.nombre %>
+</p>
+
+<p>
+  <strong>Acabado:</strong>
+  <%= @productos_especiale.acabado %>
+</p>
+
+<p>
+  <strong>Aprobado:</strong>
+  <%= @productos_especiale.aprobado %>
+</p>
+
+<% if current_user.admin? %>
+	<p>
+	  <strong>User:</strong>
+	  <%= @productos_especiale.user %>
+	</p>
+<% end %>
+
+<%= link_to 'Edit', edit_productos_especiale_path(@productos_especiale) %> |
+<%= link_to 'Back', productos_especiales_path %>

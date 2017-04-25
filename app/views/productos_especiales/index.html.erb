@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Productos Especiales</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Acabado</th>
+      <th>Aprobado</th>
+      <% if current_user.admin? %>
+        <th>User</th>
+      <% end %>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @productos_especiales.each do |productos_especiale| %>
+      <tr>
+        <td><%= productos_especiale.nombre %></td>
+        <td><%= productos_especiale.acabado %></td>
+        <% if !productos_especiale.aprobado%>
+          <td><%= button_to "Aprobar", { :controller => "productos_especiales", :action => "aprobar" }, :method => :get, params: { productos_especiale_id: productos_especiale.id } %></td>
+        <% else %>
+          <td><%= productos_especiale.aprobado %></td>
+        <% end %>
+        <% if current_user.admin? %>
+          <td><%= productos_especiale.user %></td>
+        <% end %>
+        <td><%= link_to 'Show', productos_especiale %></td>
+        <td><%= link_to 'Edit', edit_productos_especiale_path(productos_especiale) %></td>
+        <td><%= link_to 'Destroy', productos_especiale, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Productos Especiale', new_productos_especiale_path %>
