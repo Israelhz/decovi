@@ -15,6 +15,12 @@
   <%= @productos_especiale.aprobado %>
 </p>
 
+<p>
+    <strong>Producto:</strong> 
+    <br>
+    <%= image_tag @productos_especiale.image.url(:medium) %>
+  </p>
+
 <% if current_user.admin? %>
 	<p>
 	  <strong>User:</strong>

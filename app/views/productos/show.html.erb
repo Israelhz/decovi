@@ -9,6 +9,11 @@
   <div class="card-block">
     <h4 class="card-title"><%= @producto.nombre %></h4>
     <p class="card-text">Acabado: <%= @producto.acabado %> </p>
+    <p>
+	  <strong>Producto:</strong> 
+	  <br>
+	  <%= image_tag @producto.image.url(:medium) %>
+	</p>
     <%= link_to 'Edit', edit_producto_path(@producto), class:'btn btn-primary' %> |
 	<%= link_to 'Back', productos_path, class:'btn btn-primary' %>
   </div>

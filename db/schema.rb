@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170425181058) do
+ActiveRecord::Schema.define(version: 20170425201219) do
 
   create_table "contents", force: :cascade do |t|
     t.text     "title"
@@ -91,8 +91,12 @@ ActiveRecord::Schema.define(version: 20170425181058) do
   create_table "productos", force: :cascade do |t|
     t.text     "nombre"
     t.text     "acabado"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   create_table "productos_especiales", force: :cascade do |t|
@@ -100,8 +104,12 @@ ActiveRecord::Schema.define(version: 20170425181058) do
     t.text     "acabado"
     t.boolean  "aprobado"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
     t.index ["user_id"], name: "index_productos_especiales_on_user_id"
   end
 

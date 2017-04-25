@@ -1,4 +1,4 @@
-<%= form_for(productos_especiale) do |f| %>
+<%= form_for(productos_especiale, html: {multipart: true}) do |f| %>
   <% if productos_especiale.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(productos_especiale.errors.count, "error") %> prohibited this productos_especiale from being saved:</h2>
@@ -19,6 +19,11 @@
   <div class="field">
     <%= f.label :acabado %>
     <%= f.text_area :acabado %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :image %>
+    <%= f.file_field :image, class: "form-control" %>
   </div>
 
   <%=f.hidden_field :aprobado, :value => "false"%> 
