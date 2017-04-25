@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :direcciones_entregas
   has_many :direcciones_facturas
   has_many :razones_sociales
+  has_many :productos_especiales
   def active_for_authentication? 
     super && aprobado? 
   end 

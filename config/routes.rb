@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :productos_especiales
   resources :contents
   resources :facturas
   resources :product_orders
@@ -9,6 +10,9 @@ Rails.application.routes.draw do
   resources :productos
   get 'pedidos/aprobar' => 'pedidos#aprobar'
   resources :pedidos
+  get 'productos_especiales/aprobar' => 'productos_especiales#aprobar'
+  resources :productos_especiales
+  get 'productos_especiales/index'
   root 'home#index'
   get 'home/about'
   devise_for :users, :controllers => { registrations: 'registrations' }
