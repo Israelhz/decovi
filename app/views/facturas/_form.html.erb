@@ -12,13 +12,13 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :folio %>
-    <%= f.text_area :folio %>
+    <%= f.label :folio, '*Folio' %>
+    <%= f.text_field :folio, :required => true %>
   </div>
 
   <div class="form-group">
-    <%= f.label :image %>
-    <%= f.file_field :image, class: "form-control" %>
+    <%= f.label :image, '*Imagen' %>
+    <%= f.file_field :image, class: "form-control", :required => true %>
   </div>
 
   <div class="actions">

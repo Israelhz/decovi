@@ -1,9 +1,64 @@
 <div class="divide80"></div>
 
-<h1>Editing Pedido</h1>
 
-<%= render 'form', pedido: @pedido %>
+<% if params[:nuevo] == 'true' %>
+	<div class="login-form">
+		<%= form_for @pedido do |f| %>
+		  <% if User.find(@pedido.user_id).empresa? || User.find(@pedido.user_id).empleado?%>
+		  	<% 
+		  	if User.find(@pedido.user_id).empresa?
+      			@razones_sociales = User.find(@pedido.user_id).razones_sociales
+      			@razones_comerciales = RazonesComerciale.where(:razones_sociale_id => RazonesSociale.where(:user_id => @pedido.user_id).pluck(:id))
+    		end
+    		if User.find(@pedido.user_id).empleado?
+      			@razones_sociales = User.find(User.find(@pedido.user_id).trabajaPara).razones_sociales
+      			@razones_comerciales = RazonesComerciale.where(:razones_sociale_id => RazonesSociale.where(:user_id => User.find(@pedido.user_id).trabajaPara).pluck(:id))
+    		end
+    		%>
+		  	<h4>Agregar razón social y comercial</h4>
+		    <div class="field">
+		      <%= f.label :razones_sociale_id, '*Razón social: ' %> 
+		      <%= f.select :razones_sociale_id, options_for_select(@razones_sociales.collect { |razon|
+		      [razon.nombre, razon.id] }),{:prompt => "Selecciona la razón social"}, :required => true %>  
+		    </div>
+
+		    <div class="field">
+		      <%= f.label :razones_comerciale_id, '*Razón comercial: ' %> 
+		      <%= f.select :razones_comerciale_id, options_for_select(@razones_comerciales.collect { |razon|
+		      [razon.nombre, razon.id] }),{:prompt => "Selecciona la razón comercial"}, :required => true %>  
+		    </div>
+		  <% end %>
+
+		  <% if User.find(@pedido.user_id).individuo? %>
+		  	<h4>Agregar dirección de envío y facturación</h4>
+		    <div class="field">
+		      <%= f.label :direcciones_entrega_id, '*Dirección de entrega: ' %> 
+		      <%= f.select :direcciones_entrega_id, options_for_select(User.find(@pedido.user_id).direcciones_entregas.collect { |direccion|
+		      [direccion.colonia + ' ' + direccion.numero.to_s + ', ' + direccion.municipio + ' ' + direccion.estado, direccion.id] }),{:prompt => "Selecciona la dirección de entrega"}, :required => true %>  
+		    </div>
+
+		    
+		    <div class="field">
+		      <%= f.label :direcciones_factura_id, 'Dirección de facturación: ' %> 
+		      <%= f.select :direcciones_factura_id, options_for_select(User.find(@pedido.user_id).direcciones_facturas.collect { |direccion|
+		      [direccion.colonia + ' ' + direccion.numero.to_s + ', ' + direccion.municipio + ' ' + direccion.estado, direccion.id] }),{:prompt => "Selecciona la dirección de facturación"} %>  
+		    </div>
+		  <% end %>
+			<p>* requerido</p>
+		  <div class="actions">
+		    <%= f.submit :value => 'Continuar', :class => 'btn btn-success' %>
+		  </div>
+		<% end %>
+	</div>
+	<div class="divide40"></div>
+<% else %>
+<h1>Editar Pedido</h1>
+<div class="login-form">
+	<%= render 'form', pedido: @pedido %>
+</div>
+<div class="divide40"></div>
 
 <%= link_to 'Ver', @pedido, class:'btn btn-primary' %> |
 <%= link_to 'Regresar', pedidos_path, class:'btn btn-primary' %>
 <div class="divide40"></div>
+<% end %>

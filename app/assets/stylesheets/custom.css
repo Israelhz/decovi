@@ -5,3 +5,12 @@
 .container .parallax{
 	background-color: black;
 }
+
+.thumb-image{
+	width: 100%;
+}
+
+.small-img{
+	width: 100px;
+	height: auto;
+}

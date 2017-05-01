@@ -1,102 +1,148 @@
+<div class="divide80"></div>
 <br>
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h1>Usuarios Aprobados</h1>
-  </div>
-  <table class= "table">
-    <thead>
-      <tr>
-        <th>Nombre</th>
-        <th>Apellido Paterno</th>
-        <th>Apellido Materno</th>
-        <th>Correo</th>
-        <th>Tipo</th>
-        <th colspan="5"></th>
-      </tr>
-    </thead>
 
-    <tbody>
-      <% @users.each do |user| %>
-		  <tr>
-		    <td><%= user.nombre %></td>
-		    <td><%= user.apellidoPaterno %></td>
-		    <td><%= user.apellidoMaterno %></td>
-		    <td><%= user.email %></td>
-		    <% if user.admin? %>
-		    	<td><%= 'Admin' %></td>
-		    <% end %>
-		    <% if user.individuo? %>
-		    	<td><%= 'Individuo' %></td>
-		    <% end %>
-		    <% if user.ventas? %>
-		    	<td><%= 'Ventas' %></td>
-		    <% end %>
-		    <% if user.empresa? %>
-		    	<td><%= 'Empresa'  %></td>
-		    <% end %>
-		    <% if user.empleado? %>
-		    	<td><%= 'Empleado' + ' (' + User.find(user.trabajaPara).nombre + ')' %></td>
-		    <% end %>
-		    <% if user.individuo? %>
-		    	<td><%= button_to "Hacer Empresa", { :controller => "users", :action => "empresa" }, :method => :get, params: { user_id: user.id } %>
-		    <% end %> 
-		  </tr>
-      <% end %>
-    </tbody>
-  </table>
+<div class="container">
+	<div class="row">  
+      	<div class="col-md-12">
+          	<div>
+              	<h3>Usuarios</h3>
+              	<div role="tabpanel" class="login-regiter-tabs">
 
-  <br>
-  <div class="panel-footer">
-  </div>
-</div>
+	                <!-- Nav tabs -->
+	                <ul class="nav nav-tabs text-center" role="tablist">
+	                    <li role="presentation" class="active"><a href="#aprobados" aria-controls="login" role="tab" data-toggle="tab">Aprobados</a></li>
+	                    <li role="presentation"><a href="#noaprobados" aria-controls="profile" role="tab" data-toggle="tab">No aprobados</a></li>
+	                </ul>
 
-<hr>
+	                <!-- Tab panes -->
+	                <div class="tab-content">
+	                    <div role="tabpanel" class="tab-pane active" id="aprobados">
+	                        <h4 class="margin30 text-center">Usuarios aprobados</h4>
+	                        <h4 class="margin30">Individuos</h4>
+							<table class= "table table-hover">
+								<thead>
+								  <tr>
+								    <th>Nombre</th>
+								    <th>Apellido Paterno</th>
+								    <th>Apellido Materno</th>
+								    <th>Correo</th>
+								    <th colspan="5"></th>
+								  </tr>
+								</thead>
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h1>Usuarios No Aprobados</h1>
-  </div>
-  <table class= "table">
-    <thead>
-      <tr>
-        <th>Nombre</th>
-        <th>Apellido Paterno</th>
-        <th>Apellido Materno</th>
-        <th>Correo</th>
-        <th>Tipo</th>
-        <th colspan="5"></th>
-      </tr>
-    </thead>
+								<tbody>
+								  <% @usersIndividuo.each do |user| %>
+									  <tr>
+									    <td><%= user.nombre %></td>
+									    <td><%= user.apellidoPaterno %></td>
+									    <td><%= user.apellidoMaterno %></td>
+									    <td><%= user.email %></td>
+									  </tr>
+								  <% end %>
+								</tbody>
+							</table>
+							<h4 class="margin30">Empresas</h4>
+							<table class= "table table-hover">
+								<thead>
+								  <tr>
+								    <th>Nombre</th>
+								    <th>Página Web</th>
+								    <th>Correo</th>
+								    <th colspan="5"></th>
+								  </tr>
+								</thead>
 
-    <tbody>
-      <% @newUsers.each do |user| %>
-		  <tr>
-		    <td><%= user.nombre %></td>
-		    <td><%= user.apellidoPaterno %></td>
-		    <td><%= user.apellidoMaterno %></td>
-		    <td><%= user.email %></td>
-		    <% if user.admin? %>
-		    	<td><%= 'Admin' %></td>
-		    <% end %>
-		    <% if user.individuo? %>
-		    	<td><%= 'Individuo' %></td>
-		    <% end %>
-		    <% if user.ventas? %>
-		    	<td><%= 'Ventas' %></td>
-		    <% end %>
-		    <% if user.empresa? %>
-		    	<td><%= 'Empresa' %></td>
-		    <% end %>
-		    <% if user.empleado? %>
-		    	<td><%= 'Empleado' %></td>
-		    <% end %>
-		    <td><%= button_to "Aprobar", { :controller => "users", :action => "aprobar" }, :method => :get, params: { user_id: user.id } %>
-		  </tr>
-      <% end %>
-    </tbody>
-  </table>
+								<tbody>
+								  <% @usersEmpresa.each do |user| %>
+									  <tr>
+									    <td><%= user.nombre %></td>
+									    <td><%= user.paginaWeb %></td>
+									    <td><%= user.email %></td>
+									    <% if user.empleado? %>
+									    	<td><%= 'Empleado' + ' (' + User.find(user.trabajaPara).nombre + ')' %></td>
+									    <% end %>
+									  </tr>
+								  <% end %>
+								</tbody>
+							</table>
+							<h4 class="margin30">Empleados</h4>
+							<table class= "table table-hover">
+								<thead>
+								  <tr>
+								    <th>Nombre</th>
+								    <th>Correo</th>
+								    <th>Trabaja Para</th>
+								    <th colspan="5"></th>
+								  </tr>
+								</thead>
 
-  <br>
-  <div class="panel-footer">
-  </div>
+								<tbody>
+								  <% @empleados.each do |user| %>
+									  <tr>
+									    <td><%= user.nombre %></td>
+									    <td><%= user.email %></td>
+									    <% if user.empleado? %>
+									    	<td><%= User.find(user.trabajaPara).nombre %></td>
+									    <% end %>
+									  </tr>
+								  <% end %>
+								</tbody>
+							</table>
+	                    </div><!--login tab end-->
+	                    <div role="tabpanel" class="tab-pane" id="noaprobados">
+	                        <h4 class="margin30 text-center">Usuarios no aprobados</h4>
+	                        <h4 class="margin30">Individuos</h4>
+							<table class= "table table-hover">
+								<thead>
+								  <tr>
+								    <th>Nombre</th>
+								    <th>Apellido Paterno</th>
+								    <th>Apellido Materno</th>
+								    <th>Correo</th>
+								    <th colspan="5"></th>
+								  </tr>
+								</thead>
+
+								<tbody>
+								  <% @newUsersIndividuo.each do |user| %>
+									  <tr>
+									    <td><%= user.nombre %></td>
+									    <td><%= user.apellidoPaterno %></td>
+									    <td><%= user.apellidoMaterno %></td>
+									    <td><%= user.email %></td>
+									    
+									    <td><%= button_to "Aprobar", { :controller => "users", :action => "aprobar" }, :class => 'btn btn-primary', :method => :get, params: { user_id: user.id } %>
+									  </tr>
+								  <% end %>
+								</tbody>
+							</table>
+							<h4 class="margin30">Empresas</h4>
+							<table class= "table table-hover">
+								<thead>
+								  <tr>
+								    <th>Nombre</th>
+								    <th>Página web</th>
+								    <th>Correo</th>
+								    <th colspan="5"></th>
+								  </tr>
+								</thead>
+
+								<tbody>
+								  <% @newUsersEmpresa.each do |user| %>
+									  <tr>
+									    <td><%= user.nombre %></td>
+									    <td><%= user.paginaWeb %></td>
+									    <td><%= user.email %></td>
+									    
+									    <td><%= button_to "Aprobar", { :controller => "users", :action => "aprobar" }, :class => 'btn btn-primary', :method => :get, params: { user_id: user.id } %>
+									  </tr>
+								  <% end %>
+								</tbody>
+							</table>
+	                    </div><!--register tab end-->
+	                </div>
+              	</div>
+          	</div>
+      	</div>
+  	</div>
 </div>

@@ -1,9 +1,10 @@
 <div class="divide80"></div>
 
+<div class="login-form">
+	<h4>Editar Razón Social</h4>
+	<%= render 'form', razones_sociale: @razones_sociale %>
+</div>
 
-<h1>Editar Razón Social</h1>
-
-<%= render 'form', razones_sociale: @razones_sociale %>
 
 <%= link_to 'Ver', @razones_sociale, class:'btn btn-primary' %> |
 <%= link_to 'Regresar', razones_sociales_path, class:'btn btn-primary' %>

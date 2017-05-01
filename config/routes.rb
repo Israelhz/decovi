@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   resources :direcciones_entregas
   resources :productos
   get 'pedidos/aprobar' => 'pedidos#aprobar'
+  get 'pedidos/produccion' => 'pedidos#produccion'
+  get 'pedidos/enviado' => 'pedidos#enviado'
+  get 'pedidos/entregado' => 'pedidos#entregado'
   resources :pedidos
   get 'productos_especiales/aprobar' => 'productos_especiales#aprobar'
   resources :productos_especiales

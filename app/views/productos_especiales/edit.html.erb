@@ -1,6 +1,10 @@
-<h1>Editing Productos Especiale</h1>
+<div class="divide80"></div>
 
-<%= render 'form', productos_especiale: @productos_especiale %>
+<div class="login-form">
+	<h4>Editar Producto</h4>
+	<%= render 'form', productos_especiale: @productos_especiale %>
+</div>
 
-<%= link_to 'Show', @productos_especiale %> |
-<%= link_to 'Back', productos_especiales_path %>
+
+<%= link_to 'Ver', @productos_especiale, :class => 'btn btn-primary' %> |
+<%= link_to 'Volver', productos_especiales_path, :class => 'btn btn-primary' %>

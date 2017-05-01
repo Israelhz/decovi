@@ -22,7 +22,8 @@ class HomeController < ApplicationController
   end
 
   def reportes
-    @reporte = ProductOrder.group("producto_id").sum(:cantidad)
+    @productos = ProductOrder.where(:pedido_id => Pedido.where.not(:tipo => 'Especial' ))
+    @reporte = @productos.group("producto_id").sum(:cantidad)
     @cantPedidos = Pedido.count()
     @individuos = User.where(:individuo => true).count
     @empresas = User.where(:empresa => true).count

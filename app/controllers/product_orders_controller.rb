@@ -19,7 +19,15 @@ class ProductOrdersController < ApplicationController
   def new
     @pedido = Pedido.find(params[:pedido])
     @product_order = @pedido.product_orders.build
-    @productos = Producto.all
+    if (@pedido.tipo == "Especial")
+      if User.find(@pedido.user_id).empleado
+        @productos = User.find(User.find(@pedido.user_id).trabajaPara).productos_especiales
+      else
+        @productos = User.find(@pedido.user_id).productos_especiales
+      end
+    else
+      @productos = Producto.all
+    end
   end
 
   # GET /product_orders/1/edit
@@ -35,7 +43,7 @@ class ProductOrdersController < ApplicationController
     @product_order = @pedido.product_orders.build(product_order_params)
     respond_to do |format|
       if @product_order.save
-        format.html { redirect_to @product_order, notice: 'Product order was successfully created.' }
+        format.html { redirect_to product_orders_path(pedido: @pedido.id), notice: 'Product order was successfully created.' }
         format.json { render :show, status: :created, location: @product_order }
       else
         format.html { render :new }

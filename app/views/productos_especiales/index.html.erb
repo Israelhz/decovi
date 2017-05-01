@@ -1,43 +1,73 @@
 <p id="notice"><%= notice %></p>
+<div class="divide80"></div>
 
-<h1>Productos Especiales</h1>
+<div class="container">
+  <div class="row">  
+        <div class="col-md-12">
+            <div>
+                <h3>Productos especiales</h3>
+                <div role="tabpanel" class="login-regiter-tabs">
 
-<table>
-  <thead>
-    <tr>
-      <th>Nombre</th>
-      <th>Acabado</th>
-      <th>Aprobado</th>
-      <th>Imagen</th>
-      <% if current_user.admin? %>
-        <th>User</th>
-      <% end %>
-      <th colspan="4"></th>
-    </tr>
-  </thead>
+                  <!-- Nav tabs -->
+                  <ul class="nav nav-tabs text-center" role="tablist">
+                      <li role="presentation" class="active"><a href="#aprobados" aria-controls="login" role="tab" data-toggle="tab">Aprobados</a></li>
+                      <li role="presentation"><a href="#noaprobados" aria-controls="profile" role="tab" data-toggle="tab">No aprobados</a></li>
+                  </ul>
 
-  <tbody>
-    <% @productos_especiales.each do |productos_especiale| %>
-      <tr>
-        <td><%= productos_especiale.nombre %></td>
-        <td><%= productos_especiale.acabado %></td>
-        <% if !productos_especiale.aprobado && current_user.admin? %>
-          <td><%= button_to "Aprobar", { :controller => "productos_especiales", :action => "aprobar" }, :method => :get, params: { productos_especiale_id: productos_especiale.id } %></td>
-        <% else %>
-          <td><%= productos_especiale.aprobado %></td>
-        <% end %>
-        <td><%= image_tag productos_especiale.image.url(:thumb) %></td>
-        <% if current_user.admin? %>
-          <td><%= productos_especiale.user.id %></td>
-        <% end %>
-        <td><%= link_to 'Show', productos_especiale %></td>
-        <td><%= link_to 'Edit', edit_productos_especiale_path(productos_especiale) %></td>
-        <td><%= link_to 'Destroy', productos_especiale, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+                  <!-- Tab panes -->
+                  <div class="tab-content">
+                      <div role="tabpanel" class="tab-pane active" id="aprobados">
+                        <h4 class="margin30 text-center">Productos aprobados</h4>
+                          <div class="row">
+                            <% @productos_especiales.each do |producto| %>
+                              <div class="col-md-3">
+                                <div class="item_holder">
+                                    <a href="#"><%= image_tag producto.image.url, :class => "thumb-image" %></a>
+                                    <div class="title">
+                                        <h5><%= producto.nombre %><br><%= producto.acabado %></h5>
+                                    </div>
+                                    <%= link_to 'Ver', producto %>
+                                    <% if current_user.admin? %>
+                                      <%= link_to 'Editar', edit_producto_path(producto) %>
+                                    <%= link_to 'Borrar', producto, method: :delete, data: { confirm: 'Are you sure?' } %>
+                                    <% end %>
+                                </div><!--item holder-->
+                              </div><!--col end-->
+                            <% end %>
+                          </div>
+                      </div><!--login tab end-->
+                      <div role="tabpanel" class="tab-pane" id="noaprobados">
+                          <h4 class="margin30 text-center">Productos no aprobados</h4>
+                          <div class="row">
+                            <% @newproductos_especiales.each do |producto| %>
+                              <div class="col-md-3">
+                                <div class="item_holder">
+                                    <a href="#"><%= image_tag producto.image.url, :class => "thumb-image" %></a>
+                                    <div class="title">
+                                        <h5><%= producto.nombre %><br><%= producto.acabado %></h5>
+                                    </div>
+                                    <% if !producto.aprobado && current_user.admin? %>
+                                            <%= button_to "Aprobar", { :controller => "productos_especiales", :action => "aprobar" }, :method => :get, params: { productos_especiale_id: producto.id } %>
+                                    <% end %>
+                                    <%= link_to 'Ver', producto %>
+                                    <% if current_user.admin? %>
+                                      <%= link_to 'Editar', edit_producto_path(producto) %>
+                                    <%= link_to 'Borrar', producto, method: :delete, data: { confirm: 'Are you sure?' } %>
+                                    <% end %>
+                                </div><!--item holder-->
+                              </div><!--col end-->
+                            <% end %>
+                          </div>
+                      </div><!--register tab end-->
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% if !current_user.admin? && !current_user.empleado? %>
+      <%= link_to 'Nuevo producto especial', new_productos_especiale_path, class: 'btn btn-primary' %>
     <% end %>
-  </tbody>
-</table>
+    <div class="divide80"></div>
 
-<br>
 
-<%= link_to 'New Productos Especiale', new_productos_especiale_path %>
+</div>

@@ -1,6 +1,6 @@
 class ProductosController < ApplicationController
   before_action :set_producto, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :correct_user, only: [:edit, :new, :update, :destroy, :create]
 
   # GET /productos
@@ -38,7 +38,7 @@ class ProductosController < ApplicationController
 
     respond_to do |format|
       if @producto.save
-        format.html { redirect_to @producto, notice: 'Producto was successfully created.' }
+        format.html { redirect_to productos_path, notice: 'Producto was successfully created.' }
         format.json { render :show, status: :created, location: @producto }
       else
         format.html { render :new }

@@ -12,10 +12,16 @@
     <p>
 	  <strong>Producto:</strong> 
 	  <br>
-	  <%= image_tag @producto.image.url(:medium) %>
+    <div class="row">
+      <div class="col-md-6">
+        <%= image_tag @producto.image.url, :class => 'thumb-image' %>
+      </div>
+    </div>
+	  
+    <!-- <%= image_tag @producto.image.url(:medium) %> -->
 	</p>
-    <%= link_to 'Edit', edit_producto_path(@producto), class:'btn btn-primary' %> |
-	<%= link_to 'Back', productos_path, class:'btn btn-primary' %>
+  
+	<%= link_to 'Volver', productos_path, class:'btn btn-primary' %>
   </div>
 </div>
 

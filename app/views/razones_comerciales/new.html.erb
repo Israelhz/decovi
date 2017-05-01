@@ -1,9 +1,11 @@
 <div class="divide80"></div>
 
+<div class="login-form">
+	<h4>Nueva Razón Comercial</h4>
 
-<h1>Nueva Razón Comercial</h1>
+	<%= render 'form', razones_comerciale: @razones_comerciale, class:'btn btn-primary' %>
+</div>
 
-<%= render 'form', razones_comerciale: @razones_comerciale, class:'btn btn-primary' %>
 
 <%= link_to 'Regresar', razones_comerciales_path(razon: @razones_sociale.id), class:'btn btn-primary' %>
 

@@ -1,7 +1,9 @@
 <div class="divide80"></div>
-<h1>New Factura</h1>
 
-<%= render 'form', factura: @factura %>
+<div class="login-form">
+	<h4>Añadir Factura</h4>
+	<%= render 'form', factura: @factura %>
+</div>
 
 <%= link_to 'Back', facturas_path, class:'btn btn-primary' %>
 <div class="divide40"></div>

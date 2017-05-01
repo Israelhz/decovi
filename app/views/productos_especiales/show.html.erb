@@ -1,5 +1,6 @@
 <p id="notice"><%= notice %></p>
 
+<div class="divide80"></div>
 <p>
   <strong>Nombre:</strong>
   <%= @productos_especiale.nombre %>
@@ -18,7 +19,12 @@
 <p>
     <strong>Producto:</strong> 
     <br>
-    <%= image_tag @productos_especiale.image.url(:medium) %>
+    <div class="row">
+      <div class="col-md-3">
+        <%= image_tag @productos_especiale.image.url %>
+      </div>
+    </div>
+    
   </p>
 
 <% if current_user.admin? %>
@@ -28,5 +34,6 @@
 	</p>
 <% end %>
 
-<%= link_to 'Edit', edit_productos_especiale_path(@productos_especiale) %> |
-<%= link_to 'Back', productos_especiales_path %>
+<%= link_to 'Edit', edit_productos_especiale_path(@productos_especiale), :class => 'btn btn-primary' %> |
+<%= link_to 'Back', productos_especiales_path, :class => 'btn btn-primary' %>
+<div class="divide40"></div>

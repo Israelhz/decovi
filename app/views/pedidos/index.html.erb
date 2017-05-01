@@ -5,176 +5,605 @@
 <h1>Pedidos</h1>
 
 <% if current_user.admin? %>
+<div class="container">
+    <div class="row">  
+        <div class="col-md-12">
+            <div>
+                
+                <div role="tabpanel" class="login-regiter-tabs">
 
-    <h1>Empresa</h1>
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Cliente</th>
-                <th>Tipo</th>
-                <th>Estatus</th>
-                <th>Productos</th>
-                <th>Razón Social</th>
-                <th>Razón Comercial</th>
-                <th colspan="6"></th>
-            </tr>
-        </thead>
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs text-center" role="tablist">
+                        <li role="presentation" class="active"><a href="#recibidos" aria-controls="login" role="tab" data-toggle="tab">Recibidos</a></li>
+                        <li role="presentation"><a href="#aprobados" aria-controls="profile" role="tab" data-toggle="tab">Aprobados</a></li>
+                        <li role="presentation"><a href="#produccion" aria-controls="profile" role="tab" data-toggle="tab">En producción</a></li>
+                        <li role="presentation"><a href="#enviados" aria-controls="profile" role="tab" data-toggle="tab">Enviados</a></li>
+                        <li role="presentation"><a href="#entregados" aria-controls="profile" role="tab" data-toggle="tab">Entregados</a></li>
+                    </ul>
 
-        <tbody>
-            <% @pedidosAll.each do |pedido| %>  
-                <% if User.find(pedido.user_id).empresa?  %>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="recibidos">
+                            <h4 class="margin30 text-center">Recibidos</h4>
+                            <h4 class="margin30">Individuos</h4>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Cliente</th>
+                                        <th>Tipo</th>
+                                        <th>Productos</th>
+                                        <th colspan="6"></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <% @recibidos.each do |pedido| %> 
+                                        <% if User.find(pedido.user_id).individuo? %> 
+                                        <tr>
+                                            <td><%= pedido.id %></td>
+                                            <td><%= User.find(pedido.user_id).nombre%></td>
+                                            <td><%= pedido.tipo %></td>
+                                            
+                                            <td>
+                                            <% if pedido.tipo == "Especial" %>
+                                                <% pedido.product_orders.each do |producto| %>
+                                                <%= producto.cantidad.to_s + ' ' + ProductosEspeciale.find(producto.producto_id).nombre + ' ' + ProductosEspeciale.find(producto.producto_id).acabado %> <br>
+                                              <% end %>
+                                            <% else %>
+                                                <% pedido.product_orders.each do |producto| %>
+                                                <%= producto.cantidad.to_s + ' ' + Producto.find(producto.producto_id).nombre + ' ' + Producto.find(producto.producto_id).acabado %> <br>
+                                              <% end %>
+                                            <% end %>
+                                            </td>
+                                            <td><%= button_to "Aprobar", { :controller => "pedidos", :action => "aprobar" }, :method => :get, params: { pedido_id: pedido.id }, class:'btn btn-primary' %></td>
+                                            <% if !Factura.where(pedido_id: pedido.id).exists? %>
+                                                <td><%= link_to "Agregar Factura", new_factura_path(:pedido => pedido) %></td>
+                                            <% else %>
+                                                <td><%= link_to "Ver Factura", factura_path(Factura.where(pedido_id: pedido.id).first.id) %></td>
+                                            <% end %>
+                                            <td><%= link_to "Agregar Productos", product_orders_path(:pedido => pedido) %></td>
+                                            <td><%= link_to 'Ver', pedido %></td>
+                                            <td><%= link_to 'Editar', edit_pedido_path(pedido) %></td>
+                                            <td><%= link_to 'Borrar', pedido, method: :delete, data: { confirm: 'Are you sure?' }  %></td>
+                                        </tr>
+                                        <% end %>
+                                    <% end %>
+                                </tbody>
+                            </table>
+                            <h4 class="margin30">Empresas</h4>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Cliente</th>
+                                        <th>Tipo</th>
+                                        <th>Productos</th>
+                                        <th colspan="6"></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <% @recibidos.each do |pedido| %> 
+                                        <% if User.find(pedido.user_id).empresa? || User.find(pedido.user_id).empleado? %> 
+                                        <tr>
+                                            <td><%= pedido.id %></td>
+
+                                            <% if User.find(pedido.user_id).empleado? %>
+                                            <td><%= User.find(pedido.user_id).nombre  + '(Empleado de ' + User.find(User.find(pedido.user_id).trabajaPara).nombre + ' )'%></td>
+                                            <% else %>
+                                            <td><%= User.find(pedido.user_id).nombre%></td>
+                                            <% end %>
+
+                                            <td><%= pedido.tipo %></td>
+                                            <td>
+                                            <% if pedido.tipo == "Especial" %>
+                                                <% pedido.product_orders.each do |producto| %>
+                                                <%= producto.cantidad.to_s + ' ' + ProductosEspeciale.find(producto.producto_id).nombre + ' ' + ProductosEspeciale.find(producto.producto_id).acabado %> <br>
+                                              <% end %>
+                                            <% else %>
+                                                <% pedido.product_orders.each do |producto| %>
+                                                <%= producto.cantidad.to_s + ' ' + Producto.find(producto.producto_id).nombre + ' ' + Producto.find(producto.producto_id).acabado %> <br>
+                                              <% end %>
+                                            <% end %>
+                                            </td>
+                                            <td><%= button_to "Aprobar", { :controller => "pedidos", :action => "aprobar" }, :method => :get, params: { pedido_id: pedido.id}, class:'btn btn-primary' %></td>
+
+                                            <% if !Factura.where(pedido_id: pedido.id).exists? %>
+                                                <td><%= link_to "Agregar Factura", new_factura_path(:pedido => pedido) %></td>
+                                            <% else %>
+                                                <td><%= link_to "Ver Factura", factura_path(Factura.where(pedido_id: pedido.id).first.id) %></td>
+                                            <% end %>
+                                            <td><%= link_to "Agregar Productos", product_orders_path(:pedido => pedido) %></td>
+                                            <td><%= link_to 'Ver', pedido %></td>
+                                            <td><%= link_to 'Editar', edit_pedido_path(pedido) %></td>
+                                            <td><%= link_to 'Borrar', pedido, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                                        </tr>
+                                        <% end %>
+                                    <% end %>
+                                </tbody>
+                            </table>
+                        </div><!--login tab end-->
+                        <div role="tabpanel" class="tab-pane" id="aprobados">
+                            <h4 class="margin30 text-center">Aprobados</h4>
+                            <h4 class="margin30">Individuos</h4>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Cliente</th>
+                                        <th>Tipo</th>
+                                        <th>Productos</th>
+                                        <th colspan="6"></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <% @aprobados.each do |pedido| %> 
+                                        <% if User.find(pedido.user_id).individuo? %> 
+                                        <tr>
+                                            <td><%= pedido.id %></td>
+                                            <td><%= User.find(pedido.user_id).nombre%></td>
+                                            <td><%= pedido.tipo %></td>
+                                            
+                                            <td>
+                                            <% if pedido.tipo == "Especial" %>
+                                                <% pedido.product_orders.each do |producto| %>
+                                                <%= producto.cantidad.to_s + ' ' + ProductosEspeciale.find(producto.producto_id).nombre + ' ' + ProductosEspeciale.find(producto.producto_id).acabado %> <br>
+                                              <% end %>
+                                            <% else %>
+                                                <% pedido.product_orders.each do |producto| %>
+                                                <%= producto.cantidad.to_s + ' ' + Producto.find(producto.producto_id).nombre + ' ' + Producto.find(producto.producto_id).acabado %> <br>
+                                              <% end %>
+                                            <% end %>
+                                            </td>
+                                            <td><%= button_to "En producción", { :controller => "pedidos", :action => "produccion" }, :method => :get, params: { pedido_id: pedido.id }, class:'btn btn-primary' %></td>
+                                            <% if !Factura.where(pedido_id: pedido.id).exists? %>
+                                                <td><%= link_to "Agregar Factura", new_factura_path(:pedido => pedido) %></td>
+                                            <% else %>
+                                                <td><%= link_to "Ver Factura", factura_path(Factura.where(pedido_id: pedido.id).first.id) %></td>
+                                            <% end %>
+                                            <td><%= link_to "Agregar Productos", product_orders_path(:pedido => pedido) %></td>
+                                            <td><%= link_to 'Ver', pedido %></td>
+                                            <td><%= link_to 'Editar', edit_pedido_path(pedido) %></td>
+                                            <td><%= link_to 'Borrar', pedido, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                                        </tr>
+                                        <% end %>
+                                    <% end %>
+                                </tbody>
+                            </table>
+                            <h4 class="margin30">Empresas</h4>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Cliente</th>
+                                        <th>Tipo</th>
+                                        <th>Productos</th>
+                                        <th colspan="6"></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <% @aprobados.each do |pedido| %> 
+                                        <% if User.find(pedido.user_id).empresa? || User.find(pedido.user_id).empleado? %> 
+                                        <tr>
+                                            <td><%= pedido.id %></td>
+                                            <% if User.find(pedido.user_id).empleado? %>
+                                            <td><%= User.find(pedido.user_id).nombre  + '(Empleado de ' + User.find(User.find(pedido.user_id).trabajaPara).nombre + ' )'%></td>
+                                            <% else %>
+                                            <td><%= User.find(pedido.user_id).nombre%></td>
+                                            <% end %>
+                                            <td><%= pedido.tipo %></td>
+                                            <td>
+                                            <% if pedido.tipo == "Especial" %>
+                                                <% pedido.product_orders.each do |producto| %>
+                                                <%= producto.cantidad.to_s + ' ' + ProductosEspeciale.find(producto.producto_id).nombre + ' ' + ProductosEspeciale.find(producto.producto_id).acabado %> <br>
+                                              <% end %>
+                                            <% else %>
+                                                <% pedido.product_orders.each do |producto| %>
+                                                <%= producto.cantidad.to_s + ' ' + Producto.find(producto.producto_id).nombre + ' ' + Producto.find(producto.producto_id).acabado %> <br>
+                                              <% end %>
+                                            <% end %>
+                                            </td>
+                                            <td><%= button_to "En producción", { :controller => "pedidos", :action => "produccion" }, :method => :get, params: { pedido_id: pedido.id }, class:'btn btn-primary' %></td>
+                                            <% if !Factura.where(pedido_id: pedido.id).exists? %>
+                                                <td><%= link_to "Agregar Factura", new_factura_path(:pedido => pedido) %></td>
+                                            <% else %>
+                                                <td><%= link_to "Ver Factura", factura_path(Factura.where(pedido_id: pedido.id).first.id) %></td>
+                                            <% end %>
+                                            <td><%= link_to "Agregar Productos", product_orders_path(:pedido => pedido) %></td>
+                                            <td><%= link_to 'Ver', pedido %></td>
+                                            <td><%= link_to 'Editar', edit_pedido_path(pedido) %></td>
+                                            <td><%= link_to 'Borrar', pedido, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                                        </tr>
+                                        <% end %>
+                                    <% end %>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="produccion">
+                            <h4 class="margin30 text-center">En producción</h4>
+                            <h4 class="margin30">Individuos</h4>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Cliente</th>
+                                        <th>Tipo</th>
+                                        <th>Productos</th>
+                                        <th colspan="6"></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <% @produccion.each do |pedido| %> 
+                                        <% if User.find(pedido.user_id).individuo? %> 
+                                        <tr>
+                                            <td><%= pedido.id %></td>
+                                            <td><%= User.find(pedido.user_id).nombre %></td>
+                                            <td><%= pedido.tipo %></td>
+                                            <td>
+                                            <% if pedido.tipo == "Especial" %>
+                                                <% pedido.product_orders.each do |producto| %>
+                                                <%= producto.cantidad.to_s + ' ' + ProductosEspeciale.find(producto.producto_id).nombre + ' ' + ProductosEspeciale.find(producto.producto_id).acabado %> <br>
+                                              <% end %>
+                                            <% else %>
+                                                <% pedido.product_orders.each do |producto| %>
+                                                <%= producto.cantidad.to_s + ' ' + Producto.find(producto.producto_id).nombre + ' ' + Producto.find(producto.producto_id).acabado %> <br>
+                                              <% end %>
+                                            <% end %>
+                                           </td>
+                                            <td><%= button_to "Enviado", { :controller => "pedidos", :action => "enviado" }, :method => :get, params: { pedido_id: pedido.id }, class:'btn btn-primary' %></td>
+                                            <% if !Factura.where(pedido_id: pedido.id).exists? %>
+                                                <td><%= link_to "Agregar Factura", new_factura_path(:pedido => pedido) %></td>
+                                            <% else %>
+                                                <td><%= link_to "Ver Factura", factura_path(Factura.where(pedido_id: pedido.id).first.id) %></td>
+                                            <% end %>
+                                            <td><%= link_to "Agregar Productos", product_orders_path(:pedido => pedido) %></td>
+                                            <td><%= link_to 'Ver', pedido %></td>
+                                            <td><%= link_to 'Editar', edit_pedido_path(pedido) %></td>
+                                            <td><%= link_to 'Borrar', pedido, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                                        </tr>
+                                        <% end %>
+                                    <% end %>
+                                </tbody>
+                            </table>
+                            <h4 class="margin30">Empresas</h4>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Cliente</th>
+                                        <th>Tipo</th>
+                                        <th>Productos</th>
+                                        <th colspan="6"></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <% @produccion.each do |pedido| %> 
+                                        <% if User.find(pedido.user_id).empresa? || User.find(pedido.user_id).empleado? %> 
+                                        <tr>
+                                            <td><%= pedido.id %></td>
+                                            <% if User.find(pedido.user_id).empleado? %>
+                                            <td><%= User.find(pedido.user_id).nombre  + '(Empleado de ' + User.find(User.find(pedido.user_id).trabajaPara).nombre + ' )'%></td>
+                                            <% else %>
+                                            <td><%= User.find(pedido.user_id).nombre%></td>
+                                            <% end %>
+                                            <td><%= pedido.tipo %></td>
+                                            <td>
+                                            <% if pedido.tipo == "Especial" %>
+                                                <% pedido.product_orders.each do |producto| %>
+                                                <%= producto.cantidad.to_s + ' ' + ProductosEspeciale.find(producto.producto_id).nombre + ' ' + ProductosEspeciale.find(producto.producto_id).acabado %> <br>
+                                              <% end %>
+                                            <% else %>
+                                                <% pedido.product_orders.each do |producto| %>
+                                                <%= producto.cantidad.to_s + ' ' + Producto.find(producto.producto_id).nombre + ' ' + Producto.find(producto.producto_id).acabado %> <br>
+                                              <% end %>
+                                            <% end %>
+                                            </td>
+                                            <td><%= button_to "Enviado", { :controller => "pedidos", :action => "enviado" }, :method => :get, params: { pedido_id: pedido.id }, class:'btn btn-primary' %></td>
+                                            <% if !Factura.where(pedido_id: pedido.id).exists? %>
+                                                <td><%= link_to "Agregar Factura", new_factura_path(:pedido => pedido) %></td>
+                                            <% else %>
+                                                <td><%= link_to "Ver Factura", factura_path(Factura.where(pedido_id: pedido.id).first.id) %></td>
+                                            <% end %>
+                                            <td><%= link_to "Agregar Productos", product_orders_path(:pedido => pedido) %></td>
+                                            <td><%= link_to 'Ver', pedido %></td>
+                                            <td><%= link_to 'Editar', edit_pedido_path(pedido) %></td>
+                                            <td><%= link_to 'Borrar', pedido, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                                        </tr>
+                                        <% end %>
+                                    <% end %>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="enviados">
+                            <h4 class="margin30 text-center">Enviados</h4>
+                            <h4 class="margin30">Individuos</h4>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Cliente</th>
+                                        <th>Tipo</th>
+                                        <th>Productos</th>
+                                        <th colspan="6"></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <% @enviados.each do |pedido| %> 
+                                        <% if User.find(pedido.user_id).individuo? %> 
+                                        <tr>
+                                            <td><%= pedido.id %></td>
+                                            <td><%= User.find(pedido.user_id).nombre%></td>
+                                            <td><%= pedido.tipo %></td>
+                                            <td>
+                                            <% if pedido.tipo == "Especial" %>
+                                                <% pedido.product_orders.each do |producto| %>
+                                                <%= producto.cantidad.to_s + ' ' + ProductosEspeciale.find(producto.producto_id).nombre + ' ' + ProductosEspeciale.find(producto.producto_id).acabado %> <br>
+                                              <% end %>
+                                            <% else %>
+                                                <% pedido.product_orders.each do |producto| %>
+                                                <%= producto.cantidad.to_s + ' ' + Producto.find(producto.producto_id).nombre + ' ' + Producto.find(producto.producto_id).acabado %> <br>
+                                              <% end %>
+                                            <% end %>
+                                            </td>
+                                            <td>
+                                                <%= button_to "Entregado", { :controller => "pedidos", :action => "entregado" }, :method => :get, params: { pedido_id: pedido.id }, class:'btn btn-primary' %>
+                                            </td>
+                                            <% if !Factura.where(pedido_id: pedido.id).exists? %>
+                                                <td><%= link_to "Agregar Factura", new_factura_path(:pedido => pedido) %></td>
+                                            <% else %>
+                                                <td><%= link_to "Ver Factura", factura_path(Factura.where(pedido_id: pedido.id).first.id) %></td>
+                                            <% end %>
+                                            <td><%= link_to "Agregar Productos", product_orders_path(:pedido => pedido) %></td>
+                                            <td><%= link_to 'Ver', pedido %></td>
+                                            <td><%= link_to 'Editar', edit_pedido_path(pedido) %></td>
+                                            <td><%= link_to 'Borrar', pedido, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                                        </tr>
+                                        <% end %>
+                                    <% end %>
+                                </tbody>
+                            </table>
+                            <h4 class="margin30">Empresas</h4>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Cliente</th>
+                                        <th>Tipo</th>
+                                        <th>Productos</th>
+                                        <th colspan="6"></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <% @enviados.each do |pedido| %> 
+                                        <% if User.find(pedido.user_id).empresa? || User.find(pedido.user_id).empleado? %> 
+                                        <tr>
+                                            <td><%= pedido.id %></td>
+                                            <% if User.find(pedido.user_id).empleado? %>
+                                            <td><%= User.find(pedido.user_id).nombre  + '(Empleado de ' + User.find(User.find(pedido.user_id).trabajaPara).nombre + ' )'%></td>
+                                            <% else %>
+                                            <td><%= User.find(pedido.user_id).nombre%></td>
+                                            <% end %>
+                                            <td><%= pedido.tipo %></td>
+                                            <td>
+                                            <% if pedido.tipo == "Especial" %>
+                                                <% pedido.product_orders.each do |producto| %>
+                                                <%= producto.cantidad.to_s + ' ' + ProductosEspeciale.find(producto.producto_id).nombre + ' ' + ProductosEspeciale.find(producto.producto_id).acabado %> <br>
+                                              <% end %>
+                                            <% else %>
+                                                <% pedido.product_orders.each do |producto| %>
+                                                <%= producto.cantidad.to_s + ' ' + Producto.find(producto.producto_id).nombre + ' ' + Producto.find(producto.producto_id).acabado %> <br>
+                                              <% end %>
+                                            <% end %>
+                                            </td>
+                                            <td><%= button_to "Entregado", { :controller => "pedidos", :action => "entregado" }, :method => :get, params: { pedido_id: pedido.id }, class:'btn btn-primary' %></td>
+
+                                            <% if !Factura.where(pedido_id: pedido.id).exists? %>
+                                                <td><%= link_to "Agregar Factura", new_factura_path(:pedido => pedido) %></td>
+                                            <% else %>
+                                                <td><%= link_to "Ver Factura", factura_path(Factura.where(pedido_id: pedido.id).first.id) %></td>
+                                            <% end %>
+                                            <td><%= link_to 'Ver', pedido %></td>
+                                            <td><%= link_to 'Editar', edit_pedido_path(pedido) %></td>
+                                            <td><%= link_to 'Borrar', pedido, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                                        </tr>
+                                        <% end %>
+                                    <% end %>
+                                </tbody>
+                            </table>
+                        </div><!--register tab end-->
+                        <div role="tabpanel" class="tab-pane" id="entregados">
+                            <h4 class="margin30 text-center">Entregados</h4>
+                            <h4 class="margin30">Individuos</h4>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Cliente</th>
+                                        <th>Tipo</th>
+                                        <th>Productos</th>
+                                        <th colspan="6"></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <% @entregados.each do |pedido| %> 
+                                        <% if User.find(pedido.user_id).individuo? %> 
+                                        <tr>
+                                            <td><%= pedido.id %></td>
+                                            <td><%= User.find(pedido.user_id).nombre%></td>
+                                            <td><%= pedido.tipo %></td>
+                                            <td>
+                                            <% if pedido.tipo == "Especial" %>
+                                                <% pedido.product_orders.each do |producto| %>
+                                                <%= producto.cantidad.to_s + ' ' + ProductosEspeciale.find(producto.producto_id).nombre + ' ' + ProductosEspeciale.find(producto.producto_id).acabado %> <br>
+                                              <% end %>
+                                            <% else %>
+                                                <% pedido.product_orders.each do |producto| %>
+                                                <%= producto.cantidad.to_s + ' ' + Producto.find(producto.producto_id).nombre + ' ' + Producto.find(producto.producto_id).acabado %> <br>
+                                              <% end %>
+                                            <% end %>
+                                            </td>
+
+                                            <% if !Factura.where(pedido_id: pedido.id).exists? %>
+                                                <td><%= link_to "Agregar Factura", new_factura_path(:pedido => pedido) %></td>
+                                            <% else %>
+                                                <td><%= link_to "Ver Factura", factura_path(Factura.where(pedido_id: pedido.id).first.id) %></td>
+                                            <% end %>
+                                            <td><%= link_to 'Ver', pedido %></td>
+                                            <td><%= link_to 'Editar', edit_pedido_path(pedido) %></td>
+                                            <td><%= link_to 'Borrar', pedido, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                                        </tr>
+                                        <% end %>
+                                    <% end %>
+                                </tbody>
+                            </table>
+                            <h4 class="margin30">Empresas</h4>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Cliente</th>
+                                        <th>Tipo</th>
+                                        <th>Productos</th>
+                                        <th colspan="6"></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <% @entregados.each do |pedido| %> 
+                                        <% if User.find(pedido.user_id).empresa? || User.find(pedido.user_id).empleado? %> 
+                                        <tr>
+                                            <td><%= pedido.id %></td>
+                                            <% if User.find(pedido.user_id).empleado? %>
+                                            <td><%= User.find(pedido.user_id).nombre  + '(Empleado de ' + User.find(User.find(pedido.user_id).trabajaPara).nombre + ' )'%></td>
+                                            <% else %>
+                                            <td><%= User.find(pedido.user_id).nombre%></td>
+                                            <% end %>
+                                            <td><%= pedido.tipo %></td>
+                                            <td>
+                                            <% if pedido.tipo == "Especial" %>
+                                                <% pedido.product_orders.each do |producto| %>
+                                                <%= producto.cantidad.to_s + ' ' + ProductosEspeciale.find(producto.producto_id).nombre + ' ' + ProductosEspeciale.find(producto.producto_id).acabado %> <br>
+                                              <% end %>
+                                            <% else %>
+                                                <% pedido.product_orders.each do |producto| %>
+                                                <%= producto.cantidad.to_s + ' ' + Producto.find(producto.producto_id).nombre + ' ' + Producto.find(producto.producto_id).acabado %> <br>
+                                              <% end %>
+                                            <% end %>
+                                            </td>
+
+                                            <% if !Factura.where(pedido_id: pedido.id).exists? %>
+                                                <td><%= link_to "Agregar Factura", new_factura_path(:pedido => pedido) %></td>
+                                            <% else %>
+                                                <td><%= link_to "Ver Factura", factura_path(Factura.where(pedido_id: pedido.id).first.id) %></td>
+                                            <% end %>
+                                            <td><%= link_to "Agregar Productos", product_orders_path(:pedido => pedido) %></td>
+                                            <td><%= link_to 'Ver', pedido %></td>
+                                            <td><%= link_to 'Editar', edit_pedido_path(pedido) %></td>
+                                            <td><%= link_to 'Borrar', pedido, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                                        </tr>
+                                        <% end %>
+                                    <% end %>
+                                </tbody>
+                            </table>
+                        </div><!--register tab end-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<% else %>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-hover">
+                <thead>
                     <tr>
-                    <td><%= pedido.id %></td>
-                    <td><%= User.find(pedido.user_id).nombre%></td>
-                    <td><%= pedido.tipo %></td>
-                    <td>
-                    <%= pedido.estatus %>
-                    <% if pedido.estatus == 'Recibido' %>
-                      <br><%= button_to "Aprobar", { :controller => "pedidos", :action => "aprobar" }, :method => :get, params: { pedido_id: pedido.id } %>
-                    <% end %>
-                    </td>
-                    <td>
-                      <% pedido.product_orders.each do |producto| %>
-                        <%= producto.cantidad.to_s + ' ' + Producto.find(producto.producto_id).nombre + ' ' + Producto.find(producto.producto_id).acabado %> <br>
-                      <% end %>
-                    </td>
-                    <% if pedido.razones_sociale_id.present? && pedido.razones_comerciale_id.present? %>
-                    <td><%= RazonesSociale.find(pedido.razones_sociale_id).nombre %></td>
-                    <td><%= RazonesComerciale.find(pedido.razones_comerciale_id).nombre %></td>
-                    <% else %>
-                    <td></td>
-                    <td></td>
-                    <% end %>
-                    <% if !Factura.where(pedido_id: pedido.id).exists? %>
-                        <td><%= link_to "Agregar Factura", new_factura_path(:pedido => pedido) %></td>
-                    <% else %>
-                        <td></td>
-                    <% end %>
-                    <td><%= link_to "Agregar Productos", product_orders_path(:pedido => pedido) %></td>
-                    <td><%= link_to 'Ver', pedido %></td>
-                    <td><%= link_to 'Editar', edit_pedido_path(pedido) %></td>
-                    <td><%= link_to 'Borrar', pedido, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                        <th>#</th>
+                        <th>Tipo</th>
+                        <th>Estatus</th>
+                        <th>Productos</th>
+                        <% if current_user.individuo? %>
+                            <th>Dirección de entrega</th>
+                            <th>Dirección de facturación</th>
+                        <% else %>
+                            <th>Razón Social</th>
+                            <th>Razón Comercial</th>
+                        <% end %>
+                        <th colspan="4"></th>
                     </tr>
-                <% end %>
-            <% end %>
-        </tbody>
-    </table>
+                </thead>
 
-    <h1>Individuo</h1>
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Cliente</th>
-                <th>Tipo</th>
-                <th>Estatus</th>
-                <th>Productos</th>
-                <th>Dirección de envío</th>
-                <th>Dirección de facturación</th>
-                <th colspan="6"></th>
-            </tr>
-        </thead>
+                <tbody>
+                    <% @pedidos.each do |pedido| %>
+                        <tr>
+                            <td><%= pedido.id %></td>
+                            <td><%= pedido.tipo %></td>
+                            <td><%= pedido.estatus %></td>
+                            <td>
+                            <% if pedido.tipo == "Especial" %>
+                                <% pedido.product_orders.each do |producto| %>
+                                <%= producto.cantidad.to_s + ' ' + ProductosEspeciale.find(producto.producto_id).nombre + ' ' + ProductosEspeciale.find(producto.producto_id).acabado %> <br>
+                              <% end %>
+                            <% else %>
+                                <% pedido.product_orders.each do |producto| %>
+                                <%= producto.cantidad.to_s + ' ' + Producto.find(producto.producto_id).nombre + ' ' + Producto.find(producto.producto_id).acabado %> <br>
+                              <% end %>
+                            <% end %>
+                              
+                            </td>
+                            <% if current_user.individuo? %>
+                                <% if DireccionesEntrega.exists?(pedido.direcciones_entrega_id) %>
+                                    <% @entrega = DireccionesEntrega.find(pedido.direcciones_entrega_id) %>
+                                    <td><%= @entrega.colonia + ' ' + @entrega.numero.to_s + ', ' + @entrega.municipio + ', ' + @entrega.estado %> </td>
+                                <% else %>
+                                    <td></td>
+                                <% end %>
+                                <% if DireccionesFactura.exists?(pedido.direcciones_factura_id) %>
+                                    <% @facturacion = DireccionesFactura.find(pedido.direcciones_factura_id) %>
+                                    <td><%= @entrega.colonia + ' ' + @entrega.numero.to_s + ', ' + @entrega.municipio + ', ' + @entrega.estado %> </td>
+                                <% else %>
+                                    <td></td>
+                                <% end %>
+                            <% end %>
+                            <% if current_user.empresa? || current_user.empleado? %>
+                                <% if RazonesSociale.exists?(pedido.razones_sociale_id) %>
+                                    <% @entrega = RazonesSociale.find(pedido.razones_sociale_id) %>
+                                    <td><%= @entrega.direccion %> </td>
+                                <% else %>
+                                    <td></td>
+                                <% end %>
+                                <% if RazonesComerciale.exists?(pedido.razones_comerciale_id) %>
+                                    <% @facturacion = RazonesComerciale.find(pedido.razones_comerciale_id) %>
+                                    <td><%= @facturacion.area %> </td>
+                                <% else %>
+                                    <td></td>
+                                <% end %>
+                            <% end %>
+                            <% if Factura.where(pedido_id: pedido.id).exists? %>
+                                <td><%= link_to "Ver Factura", factura_path(Factura.where(pedido_id: pedido.id).first.id) %></td>
+                            <% end %>
+                            <td><%= link_to 'Ver', pedido %></td>
+                            <% if pedido.estatus == 'Recibido' %>
+                                <td><%= link_to 'Editar', edit_pedido_path(pedido) %></td>
+                            <% end %>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
-        <tbody>
-            <% @pedidosAll.each do |pedido| %>  
-                <% if User.find(pedido.user_id).individuo || User.find(pedido.user_id).admin? %>
-                    <tr>
-                    <td><%= pedido.id %></td>
-                    <td><%= User.find(pedido.user_id).nombre%></td>
-                    <td><%= pedido.tipo %></td>
-                    <td>
-                    <%= pedido.estatus %>
-                    <% if pedido.estatus == 'Recibido' %>
-                      <br><%= button_to "Aprobar", { :controller => "pedidos", :action => "aprobar" }, :method => :get, params: { pedido_id: pedido.id } %>
-                    <% end %>
-                    </td>
-                    <td>
-                      <% pedido.product_orders.each do |producto| %>
-                        <%= producto.cantidad.to_s + ' ' + Producto.find(producto.producto_id).nombre + ' ' + Producto.find(producto.producto_id).acabado %> <br>
-                      <% end %>
-                    </td>
-                    <% if pedido.direcciones_entrega_id.present? && pedido.direcciones_factura_id.present? %>
-                    <% @entrega = DireccionesEntrega.find(pedido.direcciones_entrega_id) %>
-                    <% @factura = DireccionesFactura.find(pedido.direcciones_factura_id) %>
-                    <td><%= @entrega.colonia + ' ' + @entrega.numero.to_s + ", " + @entrega.municipio + ' ' + @entrega.estado %></td>
-                    <td><%= @factura.colonia + ' ' + @factura.numero.to_s + ", " + @factura.municipio + ' ' + @factura.estado %></td>
-                    <% else %>
-                    <td></td>
-                    <td></td>
-                    <% end %>
-
-                    <% if !Factura.where(pedido_id: pedido.id).exists? %>
-                        <td><%= link_to "Agregar Factura", new_factura_path(:pedido => pedido) %></td>
-                    <% else %>
-                        <td></td>
-                    <% end %>
-                    <td><%= link_to "Agregar Productos", product_orders_path(:pedido => pedido) %></td>
-                    <td><%= link_to 'Ver', pedido %></td>
-                    <td><%= link_to 'Editar', edit_pedido_path(pedido) %></td>
-                    <td><%= link_to 'Borrar', pedido, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-                    </tr>
-                <% end %>
-            <% end %>
-        </tbody>
-    </table>
-    <% else %>
-
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Tipo</th>
-                    <th>Estatus</th>
-                    <th>Productos</th>
-                    <% if current_user.individuo? %>
-                        <th>Dirección de envío</th>
-                        <th>Dirección de facturación</th>
-                    <% end %>
-                    <% if current_user.empresa? %>
-                        <th>Razón Social</th>
-                        <th>Razón Comercial</th>
-                    <% end %>
-                    <th colspan="4"></th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <% @pedidos.each do |pedido| %>
-                  <tr>
-                    <td><%= pedido.id %></td>
-                    <td><%= pedido.tipo %></td>
-                    <td>
-                    <%= pedido.estatus %>
-                    </td>
-                    <td>
-                      <% pedido.product_orders.each do |producto| %>
-                        <%= producto.cantidad.to_s + ' ' + Producto.find(producto.producto_id).nombre + ' ' + Producto.find(producto.producto_id).acabado %> <br>
-                      <% end %>
-                    </td>
-                    <% if current_user.individuo? && pedido.direcciones_entrega_id.present? && pedido.direcciones_factura_id.present? %>
-                        <% @entrega = DireccionesEntrega.find(pedido.direcciones_entrega_id) %>
-                        <% @factura = DireccionesFactura.find(pedido.direcciones_factura_id) %>
-                        <td><%= @entrega.colonia + ' ' + @entrega.numero.to_s + ", " + @entrega.municipio + ' ' + @entrega.estado %></td>
-                        <td><%= @factura.colonia + ' ' + @factura.numero.to_s + ", " + @factura.municipio + ' ' + @factura.estado %></td>
-                    <% end %>
-                    <% if current_user.empresa? && pedido.razones_sociale_id.present? && pedido.razones_comerciale_id.present? %>
-                        <% @sociales = RazonesSociale.find(pedido.razones_sociale_id) %>
-                        <% @comerciales = RazonesComerciale.find(pedido.razones_comerciale_id) %>
-                        <td><%= @sociales.nombre %></td>
-                        <td><%= @comerciales.nombre %></td>
-                    <% end %>
-                    <td><%= link_to "Agregar Productos", product_orders_path(:pedido => pedido) %></td>
-                    <td><%= link_to 'Ver', pedido %></td>
-                    <td><%= link_to 'Editar', edit_pedido_path(pedido) %></td>
-                    <td><%= link_to 'Borrar', pedido, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-                  </tr>
-                <% end %>
-            </tbody>
-        </table>
-    <% end %>
-<br>
-
+<% end %>
 <%= link_to 'Nuevo Pedido', new_pedido_path, class:'btn btn-primary' %>
 
 <div class="divide40"></div>

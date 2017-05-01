@@ -12,17 +12,17 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :title %>
-    <%= f.text_area :title %>
+    <%= f.label :title, 'Titulo' %>
+    <%= f.text_area :title, :required => true %>
   </div>
 
   <div class="field">
-    <%= f.label :body %>
-    <%= f.text_area :body %>
+    <%= f.label :body, 'Texto' %>
+    <%= f.text_area :body, :required => true %>
   </div>
 
   <div class="form-group">
-    <%= f.label :image %>
+    <%= f.label :image, 'Imagen' %>
     <%= f.file_field :image, class: "form-control" %>
   </div>
 

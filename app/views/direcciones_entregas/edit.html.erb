@@ -1,8 +1,10 @@
 <div class="divide80"></div>
 
-<h1>Editar Dirección de entrega</h1>
+<div class="login-form">
+	<h4>Editar Dirección de entrega</h4>
+	<%= render 'form', direcciones_entrega: @direcciones_entrega %>
+</div>
 
-<%= render 'form', direcciones_entrega: @direcciones_entrega %>
 
 <%= link_to 'Ver', @direcciones_entrega, class:'btn btn-primary'  %> |
 <%= link_to 'Regresar', direcciones_entregas_path, class:'btn btn-primary'  %>

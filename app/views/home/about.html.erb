@@ -15,10 +15,11 @@
         </div>
         <div class="col-md-6">
             <% if @content1.image.exists? %>
-                <%= image_tag @content1.image.url(:medium) %>
+                <%= image_tag @content1.image.url, :class => 'thumb-image' %>
             <% else %>
                 <%= image_tag("imgDecovi.png", class:'img-responsive') %>
             <% end %>
         </div>
     </div>
 </div>
+<div class="divide40"></div>

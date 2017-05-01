@@ -12,28 +12,28 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :nombre %>
-    <%= f.text_field :nombre %>
+    <%= f.label :nombre, '*Nombre' %>
+    <%= f.text_field :nombre,:required => true  %>
   </div>
 
   <div class="field">
-    <%= f.label :rfc %>
-    <%= f.text_field :rfc %>
+    <%= f.label :rfc, '*RFC' %>
+    <%= f.text_field :rfc,:required => true  %>
   </div>
 
   <div class="field">
-    <%= f.label :email %>
-    <%= f.text_field :email %>
+    <%= f.label :email, '*Email' %>
+    <%= f.text_field :email,:required => true  %>
   </div>
 
   <div class="field">
-    <%= f.label :direccion %>
-    <%= f.text_field :direccion %>
+    <%= f.label :direccion, '*Dirección' %>
+    <%= f.text_field :direccion,:required => true  %>
   </div>
 
   <div class="field">
-    <%= f.label :telefono %>
-    <%= f.text_field :telefono %>
+    <%= f.label :telefono, '*Teléfono' %>
+    <%= f.text_field :telefono,:required => true  %>
   </div>
 
   <div class="field">
@@ -45,6 +45,6 @@
 
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit :class => 'btn btn-primary'%>
   </div>
 <% end %>

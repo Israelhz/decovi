@@ -27,6 +27,6 @@ class WorkersController < ApplicationController
     end
 
     def user_params
-  		params.require(:user).permit(:email, :password, :password_confirmation, :trabajaPara, :empleado, :aprobado)
+  		params.require(:user).permit(:nombre, :apellidoPaterno, :apellidoMaterno, :email, :password, :password_confirmation, :trabajaPara, :empleado, :aprobado)
 	end
 end

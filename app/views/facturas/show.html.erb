@@ -9,12 +9,17 @@
 <p>
   <strong>Factura:</strong> 
   <br>
-  <%= image_tag @factura.image.url(:original) %>
+  <div class="row">
+  	<div class="col-md-6">
+  		<%= image_tag @factura.image.url, :class => "thumb-image" %>
+  	</div>
+  </div>
+  
 </p>
 
 <p>
   <strong>User:</strong>
-  <%= @factura.user_id %>
+  <%= User.find(@factura.user_id).nombre %>
 </p>
 
 <p>
@@ -22,6 +27,6 @@
   <%= @factura.pedido_id %>
 </p>
 
-<%= link_to 'Edit', edit_factura_path(@factura), class:'btn btn-primary' %> |
-<%= link_to 'Back', facturas_path, class:'btn btn-primary' %>
+<%= link_to 'Editar', edit_factura_path(@factura), class:'btn btn-primary' %> |
+<%= link_to 'Volver', pedidos_path, class:'btn btn-primary' %>
 <div class="divide40"></div>

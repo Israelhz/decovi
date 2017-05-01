@@ -1,8 +1,11 @@
 <div class="divide80"></div>
 
-<h1>Nuevo producto</h1>
+<h1>Añadir producto</h1>
 
-<%= render 'form', product_order: @product_order %>
+<div class="login-form">
+	<%= render 'form', product_order: @product_order %>
+</div>
 
-<%= link_to 'Regresar', product_orders_path(:pedido => @pedido) %>
+<div class="divide40"></div>
+<%= link_to 'Regresar', product_orders_path(:pedido => @pedido), :class => 'btn btn-primary' %>
 <div class="divide40"></div>

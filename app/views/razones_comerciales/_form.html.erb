@@ -12,22 +12,22 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :nombre %>
-    <%= f.text_field :nombre %>
+    <%= f.label :nombre, '*Nombre' %>
+    <%= f.text_field :nombre,:required => true %>
   </div>
 
   <div class="field">
-    <%= f.label :area %>
-    <%= f.text_field :area %>
+    <%= f.label :area, '*Dirección' %>
+    <%= f.text_field :area, :required => true %>
   </div>
 
   <div class="field">
-    <%= f.label :telefono1 %>
-    <%= f.text_field :telefono1 %>
+    <%= f.label :telefono1, '*Teléfono 1' %>
+    <%= f.text_field :telefono1, :required => true %>
   </div>
 
   <div class="field">
-    <%= f.label :telefono2 %>
+    <%= f.label :telefono2, 'Teléfono 2' %>
     <%= f.text_field :telefono2 %>
   </div>
 

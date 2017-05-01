@@ -1,8 +1,10 @@
 <div class="divide80"></div>
 
-<h1>Editing Direcciones Factura</h1>
+<div class="login-form">
+	<h1>Editar Direccion de Facturación</h1>
+	<%= render 'form', direcciones_factura: @direcciones_factura %>
+</div>
 
-<%= render 'form', direcciones_factura: @direcciones_factura %>
 
 <%= link_to 'Ver', @direcciones_factura, class:'btn btn-primary'  %> |
 <%= link_to 'Regresar', direcciones_facturas_path, class:'btn btn-primary'  %>

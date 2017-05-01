@@ -1,12 +1,12 @@
 <p id="notice"><%= notice %></p>
-
+<div class="divide80"></div>
 <p>
-  <strong>Title:</strong>
+  <strong>Título:</strong>
   <%= @content.title %>
 </p>
 
 <p>
-  <strong>Body:</strong>
+  <strong>Texto:</strong>
   <%= @content.body %>
 </p>
 
@@ -14,7 +14,12 @@
 	<p>
 	  <strong>Imagen:</strong> 
 	  <br>
-	  <%= image_tag @content.image.url(:medium) %>
+	  <div class="row">
+	  	<div class="col-md-6">
+	  		<%= image_tag @content.image.url, :class => 'thumb-image' %>
+	  	</div>
+	  </div>
+	  
 	</p>
 <% end %>
 <%= link_to 'Edit', edit_content_path(@content) %> |

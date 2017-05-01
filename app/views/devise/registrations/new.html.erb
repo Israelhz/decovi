@@ -5,26 +5,92 @@
       <div class="col-md-8 col-sm-8 col-md-offset-2 col-sm-offset-2">
           <div class="login-form">
               <h3>Sign Up</h3>
-              <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-              <%= devise_error_messages! %>
-              <form role="form">
-              <div class="form-group">
-                  <%= f.label :email %><br />
-                  <%= f.email_field :email, autofocus: true, class:'form-control'%>
+
+
+              <div role="tabpanel" class="login-regiter-tabs">
+
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs text-center" role="tablist">
+                    <li role="presentation" class="active"><a href="#individuo" aria-controls="login" role="tab" data-toggle="tab">Individuo</a></li>
+                    <li role="presentation"><a href="#empresa" aria-controls="profile" role="tab" data-toggle="tab">Empresa</a></li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="individuo">
+                        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+                        <%= devise_error_messages! %>
+                        <form role="form">
+                          <div class="form-group">
+                            <%= f.label :nombre, "Nombre" %><br />
+                            <%= f.text_field :nombre, autofocus: true, class:'form-control' %>
+                          </div>
+                          <div class="form-group">
+                            <%= f.label :apellidoPaterno, "Apellido Paterno" %><br />
+                            <%= f.text_field :apellidoPaterno, class:'form-control'%>
+                          </div>
+
+                          <div class="form-group">
+                            <%= f.label :apellidoMaterno, "Apellido Materno" %><br />
+                            <%= f.text_field :apellidoMaterno, class:'form-control' %>
+                          </div>
+                          <div class="form-group">
+                              <%= f.label :email %><br />
+                              <%= f.email_field :email, autofocus: true, class:'form-control'%>
+                          </div>
+                          <div class="form-group">
+                              <%= f.label :password %>
+                              <% if @minimum_password_length %>
+                              <em>(<%= @minimum_password_length %> characters minimum)</em>
+                              <% end %><br />
+                              <%= f.password_field :password, autocomplete: "off", class:'form-control' %>
+                          </div> 
+                          <div class="form-group">
+                              <%= f.label :password_confirmation %><br />
+                              <%= f.password_field :password_confirmation, autocomplete: "off", class:'form-control' %>
+                          </div>
+
+                          <%=f.hidden_field :individuo, :value => "true"%>        
+                        <%= f.submit "Sign up", class:'btn btn-theme-bg' %>
+                        <% end %>
+                        </form>
+                    </div><!--login tab end-->
+                    <div role="tabpanel" class="tab-pane" id="empresa">
+                        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+                        <%= devise_error_messages! %>
+                        <form role="form">
+                          <div class="form-group">
+                            <%= f.label :nombre, "Nombre" %><br />
+                            <%= f.text_field :nombre, autofocus: true, class:'form-control' %>
+                          </div>
+                          <div class="form-group">
+                            <%= f.label :paginaWeb, "Página Web" %><br />
+                            <%= f.text_field :paginaWeb, class:'form-control'%>
+                          </div>
+                          <div class="form-group">
+                              <%= f.label :email %><br />
+                              <%= f.email_field :email, autofocus: true, class:'form-control'%>
+                          </div>
+                          <div class="form-group">
+                              <%= f.label :password %>
+                              <% if @minimum_password_length %>
+                              <em>(<%= @minimum_password_length %> characters minimum)</em>
+                              <% end %><br />
+                              <%= f.password_field :password, autocomplete: "off", class:'form-control' %>
+                          </div> 
+                          <div class="form-group">
+                              <%= f.label :password_confirmation %><br />
+                              <%= f.password_field :password_confirmation, autocomplete: "off", class:'form-control' %>
+                          </div>
+
+                          <%=f.hidden_field :empresa, :value => "true"%>        
+                        <%= f.submit "Sign up", class:'btn btn-theme-bg' %>
+                        <% end %>
+                        </form>
+                    </div><!--register tab end-->
+                </div>
+
               </div>
-              <div class="form-group">
-                  <%= f.label :password %>
-                  <% if @minimum_password_length %>
-                  <em>(<%= @minimum_password_length %> characters minimum)</em>
-                  <% end %><br />
-                  <%= f.password_field :password, autocomplete: "off", class:'form-control' %>
-              </div> 
-              <div class="form-group">
-                  <%= f.label :password_confirmation %><br />
-                  <%= f.password_field :password_confirmation, autocomplete: "off", class:'form-control' %>
-              </div>        
-              <%= f.submit "Sign up", class:'btn btn-theme-bg' %>
-              <% end %>
           </div>
       </div>
   </div>

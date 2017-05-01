@@ -6,9 +6,16 @@ class ProductosEspecialesController < ApplicationController
   # GET /productos_especiales.json
   def index
     if current_user.admin
-      @productos_especiales = ProductosEspeciale.all
+      @newproductos_especiales = ProductosEspeciale.where(aprobado: false)
+      @productos_especiales = ProductosEspeciale.where(aprobado: 'Aprobado')
     else
-      @productos_especiales = current_user.productos_especiales
+      @productos_especiales = current_user.productos_especiales.where(aprobado: 'Aprobado')
+      @newproductos_especiales = current_user.productos_especiales.where(aprobado: false)
+    end
+    if current_user.empleado?
+      @productos_especiales = User.find(current_user.trabajaPara).productos_especiales.where(aprobado: 'Aprobado')
+      @newproductos_especiales = User.find(current_user.trabajaPara).productos_especiales.where(aprobado: false)
+    
     end
   end
 
@@ -34,6 +41,7 @@ class ProductosEspecialesController < ApplicationController
   # POST /productos_especiales
   # POST /productos_especiales.json
   def create
+   
     @productos_especiale = current_user.productos_especiales.build(productos_especiale_params)
 
     respond_to do |format|
