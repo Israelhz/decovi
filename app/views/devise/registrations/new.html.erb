@@ -22,36 +22,36 @@
                         <%= devise_error_messages! %>
                         <form role="form">
                           <div class="form-group">
-                            <%= f.label :nombre, "Nombre" %><br />
-                            <%= f.text_field :nombre, autofocus: true, class:'form-control' %>
+                            <%= f.label :nombre, "*Nombre" %><br />
+                            <%= f.text_field :nombre, autofocus: true, class:'form-control', :required => true %>
                           </div>
                           <div class="form-group">
-                            <%= f.label :apellidoPaterno, "Apellido Paterno" %><br />
-                            <%= f.text_field :apellidoPaterno, class:'form-control'%>
+                            <%= f.label :apellidoPaterno, "*Apellido Paterno" %><br />
+                            <%= f.text_field :apellidoPaterno, class:'form-control', :required => true%>
                           </div>
 
                           <div class="form-group">
-                            <%= f.label :apellidoMaterno, "Apellido Materno" %><br />
-                            <%= f.text_field :apellidoMaterno, class:'form-control' %>
+                            <%= f.label :apellidoMaterno, "*Apellido Materno" %><br />
+                            <%= f.text_field :apellidoMaterno, class:'form-control', :required => true%>
                           </div>
                           <div class="form-group">
-                              <%= f.label :email %><br />
-                              <%= f.email_field :email, autofocus: true, class:'form-control'%>
+                              <%= f.label :email, '*Email' %><br />
+                              <%= f.email_field :email, autofocus: true, class:'form-control', :required => true%>
                           </div>
                           <div class="form-group">
-                              <%= f.label :password %>
+                              <%= f.label :password, '*Contraseña' %>
                               <% if @minimum_password_length %>
                               <em>(<%= @minimum_password_length %> characters minimum)</em>
                               <% end %><br />
-                              <%= f.password_field :password, autocomplete: "off", class:'form-control' %>
+                              <%= f.password_field :password, autocomplete: "off", class:'form-control', :required => true %>
                           </div> 
                           <div class="form-group">
-                              <%= f.label :password_confirmation %><br />
-                              <%= f.password_field :password_confirmation, autocomplete: "off", class:'form-control' %>
+                              <%= f.label :password_confirmation, '*Contraseña' %><br />
+                              <%= f.password_field :password_confirmation, autocomplete: "off", class:'form-control', :required => true %>
                           </div>
 
                           <%=f.hidden_field :individuo, :value => "true"%>        
-                        <%= f.submit "Sign up", class:'btn btn-theme-bg' %>
+                        <%= f.submit "Registrarse", class:'btn btn-theme-bg' %>
                         <% end %>
                         </form>
                     </div><!--login tab end-->
@@ -60,31 +60,31 @@
                         <%= devise_error_messages! %>
                         <form role="form">
                           <div class="form-group">
-                            <%= f.label :nombre, "Nombre" %><br />
-                            <%= f.text_field :nombre, autofocus: true, class:'form-control' %>
+                            <%= f.label :nombre, "*Nombre" %><br />
+                            <%= f.text_field :nombre, autofocus: true, class:'form-control', :required => true %>
                           </div>
                           <div class="form-group">
-                            <%= f.label :paginaWeb, "Página Web" %><br />
-                            <%= f.text_field :paginaWeb, class:'form-control'%>
+                            <%= f.label :paginaWeb, "*Página Web" %><br />
+                            <%= f.text_field :paginaWeb, class:'form-control' %>
                           </div>
                           <div class="form-group">
-                              <%= f.label :email %><br />
-                              <%= f.email_field :email, autofocus: true, class:'form-control'%>
+                              <%= f.label :email, '*Email' %><br />
+                              <%= f.email_field :email, autofocus: true, class:'form-control', :required => true%>
                           </div>
                           <div class="form-group">
-                              <%= f.label :password %>
+                              <%= f.label :password, '*Constraseña'%>
                               <% if @minimum_password_length %>
                               <em>(<%= @minimum_password_length %> characters minimum)</em>
                               <% end %><br />
-                              <%= f.password_field :password, autocomplete: "off", class:'form-control' %>
+                              <%= f.password_field :password, autocomplete: "off", class:'form-control', :required => true %>
                           </div> 
                           <div class="form-group">
-                              <%= f.label :password_confirmation %><br />
-                              <%= f.password_field :password_confirmation, autocomplete: "off", class:'form-control' %>
+                              <%= f.label :password_confirmation, '*Constraseña' %><br />
+                              <%= f.password_field :password_confirmation, autocomplete: "off", class:'form-control', :required => true %>
                           </div>
 
                           <%=f.hidden_field :empresa, :value => "true"%>        
-                        <%= f.submit "Sign up", class:'btn btn-theme-bg' %>
+                        <%= f.submit "Registrarse", class:'btn btn-theme-bg' %>
                         <% end %>
                         </form>
                     </div><!--register tab end-->
