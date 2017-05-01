@@ -1,6 +1,6 @@
 class FacturasController < ApplicationController
   before_action :set_factura, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, :correct_user
+  before_action :authenticate_user!, :correct_user, except: [:show]
 
   # GET /facturas
   # GET /facturas.json
